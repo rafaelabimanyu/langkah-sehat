@@ -42,7 +42,7 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-tr from-indigo-900 via-slate-950 to-blue-900 min-h-screen text-white base-font flex antialiased overflow-x-hidden {{ Auth::check() && Auth::user()->role === 'admin' ? 'flex-col md:flex-row' : 'flex-col' }}">
+<body class="bg-gradient-to-tr from-slate-950 via-indigo-950 to-blue-900 min-h-screen text-white base-font flex antialiased overflow-x-hidden {{ Auth::check() && Auth::user()->role === 'admin' ? 'flex-col md:flex-row' : 'flex-col' }}">
 
     @auth
         @if(Auth::user()->role === 'masyarakat')
