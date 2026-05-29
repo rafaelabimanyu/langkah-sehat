@@ -12,15 +12,31 @@ use Illuminate\View\View;
 class MasyarakatController extends Controller
 {
     /**
-     * Display a listing of the user's travel logs.
+     * Display a listing of the user's travel logs and statistics.
      */
     public function index(Request $request): View
     {
         $search = $request->input('search');
-        $filterSuhu = $request->input('filter_suhu'); // 'normal' (<37.5) or 'demam' (>=37.5)
+        $filterSuhu = $request->input('filter_suhu');
         $filterTanggal = $request->input('filter_tanggal');
 
-        $query = Auth::user()->perjalanans();
+        $user = Auth::user();
+        
+        // 1. Calculate Analytics
+        $totalLogs = $user->perjalanans()->count();
+        $avgTemp = $user->perjalanans()->avg('suhu_tubuh') ?? 0;
+        
+        // Latest log to determine status
+        $latestLog = $user->perjalanans()->orderBy('tanggal', 'desc')->orderBy('jam', 'desc')->first();
+        $healthStatus = 'Normal';
+        if (!$latestLog) {
+            $healthStatus = 'Belum Ada Data';
+        } elseif ($latestLog->suhu_tubuh >= 37.5) {
+            $healthStatus = 'Demam (Butuh Istirahat)';
+        }
+
+        // 2. Query Logs for Table
+        $query = $user->perjalanans();
 
         if ($search) {
             $query->where('lokasi', 'like', '%' . $search . '%');
@@ -38,20 +54,19 @@ class MasyarakatController extends Controller
             $query->whereDate('tanggal', $filterTanggal);
         }
 
-        // Paginate or get logs sorted by newest
         $perjalanans = $query->orderBy('tanggal', 'desc')
                              ->orderBy('jam', 'desc')
                              ->get();
 
-        return view('masyarakat.dashboard', compact('perjalanans', 'search', 'filterSuhu', 'filterTanggal'));
-    }
-
-    /**
-     * Show the form for creating a new travel log.
-     */
-    public function create(): View
-    {
-        return view('masyarakat.create');
+        return view('masyarakat.dashboard', compact(
+            'perjalanans', 
+            'search', 
+            'filterSuhu', 
+            'filterTanggal',
+            'totalLogs',
+            'avgTemp',
+            'healthStatus'
+        ));
     }
 
     /**
@@ -62,7 +77,7 @@ class MasyarakatController extends Controller
         Auth::user()->perjalanans()->create($request->validated());
 
         return redirect()->route('masyarakat.dashboard')
-            ->with('success', 'Catatan perjalanan berhasil ditambahkan!');
+            ->with('success', 'Catatan perjalanan baru berhasil ditambahkan!');
     }
 
     /**
@@ -70,7 +85,7 @@ class MasyarakatController extends Controller
      */
     public function edit(Perjalanan $perjalanan): View
     {
-        // Security check: ensure user owns the travel log
+        // Security check
         if ($perjalanan->user_id !== Auth::id()) {
             abort(403, 'Anda tidak memiliki akses ke data ini.');
         }
@@ -83,7 +98,7 @@ class MasyarakatController extends Controller
      */
     public function update(PerjalananRequest $request, Perjalanan $perjalanan): RedirectResponse
     {
-        // Security check: ensure user owns the travel log
+        // Security check
         if ($perjalanan->user_id !== Auth::id()) {
             abort(403, 'Anda tidak memiliki akses ke data ini.');
         }
@@ -99,7 +114,7 @@ class MasyarakatController extends Controller
      */
     public function destroy(Perjalanan $perjalanan): RedirectResponse
     {
-        // Security check: ensure user owns the travel log
+        // Security check
         if ($perjalanan->user_id !== Auth::id()) {
             abort(403, 'Anda tidak memiliki akses ke data ini.');
         }

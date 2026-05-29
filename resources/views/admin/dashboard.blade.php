@@ -122,7 +122,15 @@
                 <i class="fa-solid fa-display"></i>
                 <span>Tabel Pemantauan Perjalanan Nasional</span>
             </h3>
-            <span class="text-xs text-white/50">Ditemukan: <strong class="text-white">{{ $perjalanans->count() }}</strong> data log</span>
+            <div class="flex items-center space-x-3">
+                <a href="{{ route('admin.print', ['search' => $search, 'filter_tanggal' => $filterTanggal, 'filter_suhu' => $filterSuhu]) }}" 
+                   target="_blank" 
+                   class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-600 hover:to-emerald-600 border-none rounded-xl text-slate-950 font-bold text-xs tracking-wide shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-print"></i>
+                    <span>Cetak Laporan</span>
+                </a>
+                <span class="text-xs text-white/50">Ditemukan: <strong class="text-white">{{ $perjalanans->count() }}</strong> data log</span>
+            </div>
         </div>
 
         <div class="overflow-x-auto">

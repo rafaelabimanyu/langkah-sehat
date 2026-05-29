@@ -25,7 +25,6 @@
         .body-font {
             font-family: 'Inter', sans-serif;
         }
-        /* Custom scrollbar for Glassmorphism */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -43,108 +42,143 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-tr from-indigo-900 via-slate-950 to-blue-900 min-h-screen text-white base-font flex flex-col md:flex-row antialiased overflow-x-hidden">
+<body class="bg-gradient-to-tr from-indigo-900 via-slate-950 to-blue-900 min-h-screen text-white base-font flex antialiased overflow-x-hidden {{ Auth::check() && Auth::user()->role === 'admin' ? 'flex-col md:flex-row' : 'flex-col' }}">
 
-    <!-- Mobile Header -->
-    <div class="md:hidden flex items-center justify-between px-6 py-4 bg-slate-950/60 backdrop-blur-md border-b border-white/10 z-50">
-        <a href="#" class="flex items-center space-x-2">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-400 to-emerald-400 flex items-center justify-center shadow-lg shadow-cyan-500/30">
-                <i class="fa-solid fa-heart-pulse text-slate-950 text-lg"></i>
-            </div>
-            <span class="font-extrabold text-lg tracking-wider bg-gradient-to-r from-cyan-300 to-emerald-300 bg-clip-text text-transparent">Langkah Sehat</span>
-        </a>
-        <button id="mobile-menu-toggle" class="text-white hover:text-cyan-400 focus:outline-none transition-colors">
-            <i class="fa-solid fa-bars text-xl"></i>
-        </button>
-    </div>
+    @auth
+        @if(Auth::user()->role === 'masyarakat')
+            <!-- SLEEK TOP NAVIGATION BAR FOR MASYARAKAT -->
+            <header class="w-full bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-50 transition-all duration-300">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+                    
+                    <!-- Brand Logo -->
+                    <a href="{{ route('masyarakat.dashboard') }}" class="flex items-center space-x-2.5">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-400 to-emerald-400 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-heart-pulse text-slate-950 text-base"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-extrabold text-base tracking-wider bg-gradient-to-r from-cyan-300 to-emerald-300 bg-clip-text text-transparent">Langkah Sehat</span>
+                            <span class="text-[9px] text-white/50 tracking-widest font-semibold uppercase -mt-0.5">Masyarakat Panel</span>
+                        </div>
+                    </a>
 
-    <!-- Sidebar Container -->
-    <aside id="sidebar" class="hidden md:flex flex-col w-full md:w-64 bg-slate-950/40 backdrop-blur-xl border-r border-white/10 min-h-screen p-6 shrink-0 transition-all duration-300">
-        <!-- Logo -->
-        <div class="flex items-center space-x-3 mb-10">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 to-emerald-400 flex items-center justify-center shadow-lg shadow-cyan-500/30">
-                <i class="fa-solid fa-heart-pulse text-slate-950 text-xl"></i>
-            </div>
-            <div class="flex flex-col">
-                <span class="font-extrabold text-lg tracking-wider bg-gradient-to-r from-cyan-300 to-emerald-300 bg-clip-text text-transparent">Langkah Sehat</span>
-                <span class="text-xs text-white/50 tracking-widest font-semibold uppercase">Self Tracking</span>
-            </div>
-        </div>
+                    <!-- Left Nav Items (Simple, since it's all in one page) -->
+                    <div class="hidden sm:flex items-center space-x-6">
+                        <a href="{{ route('masyarakat.dashboard') }}" class="flex items-center space-x-2 px-3 py-2 rounded-xl bg-white/10 text-cyan-300 font-semibold border border-white/10 text-sm">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Dashboard & Riwayat</span>
+                        </a>
+                    </div>
 
-        <!-- User Profile Card -->
-        @auth
-        <div class="mb-8 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-300 font-bold text-lg">
-                {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
-            </div>
-            <div class="overflow-hidden">
-                <h4 class="font-semibold text-sm truncate text-white">{{ Auth::user()->name }}</h4>
-                <div class="flex items-center space-x-1.5 mt-0.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span class="text-xs text-white/60 capitalize font-medium">{{ Auth::user()->role === 'admin' ? 'Super Admin' : 'Masyarakat' }}</span>
+                    <!-- Right Side: User Profile & Logout -->
+                    <div class="flex items-center space-x-4">
+                        <div class="hidden md:flex items-center space-x-3 pr-3 border-r border-white/10">
+                            <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-300 font-bold text-sm">
+                                {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
+                            </div>
+                            <span class="text-sm font-semibold text-white/90">{{ Auth::user()->name }}</span>
+                        </div>
+
+                        <form action="{{ route('logout') }}" method="POST" class="m-0">
+                            @csrf
+                            <button type="submit" class="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/25 border border-rose-500/20 text-rose-300 hover:text-white text-xs font-bold transition-all duration-300 hover:-translate-y-0.5 cursor-pointer">
+                                <i class="fa-solid fa-sign-out-alt"></i>
+                                <span>Keluar</span>
+                            </button>
+                        </form>
+                    </div>
+
                 </div>
+            </header>
+        @else
+            <!-- ADMIN VIEW: RETAIN SIDEBAR LAYOUT -->
+            <!-- Mobile Header for Admin -->
+            <div class="md:hidden flex items-center justify-between px-6 py-4 bg-slate-950/60 backdrop-blur-md border-b border-white/10 z-50">
+                <a href="#" class="flex items-center space-x-2">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-400 to-emerald-400 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                        <i class="fa-solid fa-heart-pulse text-slate-950 text-lg"></i>
+                    </div>
+                    <span class="font-extrabold text-lg tracking-wider bg-gradient-to-r from-cyan-300 to-emerald-300 bg-clip-text text-transparent">Langkah Sehat</span>
+                </a>
+                <button id="mobile-menu-toggle" class="text-white hover:text-cyan-400 focus:outline-none transition-colors">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
             </div>
-        </div>
-        @endauth
 
-        <!-- Navigation Menu -->
-        <nav class="flex-1 space-y-2">
-            @auth
-                @if(Auth::user()->role === 'masyarakat')
-                    <!-- Masyarakat Menu -->
-                    <a href="{{ route('masyarakat.dashboard') }}" class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ Route::is('masyarakat.dashboard') ? 'bg-white/15 border-l-4 border-cyan-400 text-white font-semibold shadow-md' : 'text-white/70 hover:bg-white/5 hover:text-white' }}">
-                        <i class="fa-solid fa-clock-history text-lg"></i>
-                        <span>Riwayat Perjalanan</span>
-                    </a>
-                    <a href="{{ route('perjalanan.create') }}" class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ Route::is('perjalanan.create') ? 'bg-white/15 border-l-4 border-cyan-400 text-white font-semibold shadow-md' : 'text-white/70 hover:bg-white/5 hover:text-white' }}">
-                        <i class="fa-solid fa-map-location-dot text-lg"></i>
-                        <span>Input Perjalanan</span>
-                    </a>
-                @elseif(Auth::user()->role === 'admin')
-                    <!-- Admin Menu -->
+            <!-- Admin Sidebar -->
+            <aside id="sidebar" class="hidden md:flex flex-col w-full md:w-64 bg-slate-950/40 backdrop-blur-xl border-r border-white/10 min-h-screen p-6 shrink-0 transition-all duration-300">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 mb-10">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 to-emerald-400 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                        <i class="fa-solid fa-heart-pulse text-slate-950 text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-extrabold text-lg tracking-wider bg-gradient-to-r from-cyan-300 to-emerald-300 bg-clip-text text-transparent">Langkah Sehat</span>
+                        <span class="text-xs text-white/50 tracking-widest font-semibold uppercase">Super Admin</span>
+                    </div>
+                </div>
+
+                <!-- User Profile Card -->
+                <div class="mb-8 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-300 font-bold text-lg">
+                        {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 class="font-semibold text-sm truncate text-white">{{ Auth::user()->name }}</h4>
+                        <div class="flex items-center space-x-1.5 mt-0.5">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                            <span class="text-xs text-white/60 capitalize font-medium">Administrator</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Menu -->
+                <nav class="flex-1 space-y-2">
                     <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ Route::is('admin.dashboard') ? 'bg-white/15 border-l-4 border-cyan-400 text-white font-semibold shadow-md' : 'text-white/70 hover:bg-white/5 hover:text-white' }}">
                         <i class="fa-solid fa-chart-line text-lg"></i>
                         <span>Monitoring Global</span>
                     </a>
-                @endif
-            @endauth
-        </nav>
+                    <a href="{{ route('admin.users') }}" class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 {{ Route::is('admin.users') ? 'bg-white/15 border-l-4 border-cyan-400 text-white font-semibold shadow-md' : 'text-white/70 hover:bg-white/5 hover:text-white' }}">
+                        <i class="fa-solid fa-users-gear text-lg"></i>
+                        <span>Kelola Pengguna</span>
+                    </a>
+                </nav>
 
-        <!-- Logout Action -->
-        @auth
-        <div class="mt-auto pt-6 border-t border-white/10">
-            <form action="{{ route('logout') }}" method="POST" class="w-full">
-                @csrf
-                <button type="submit" class="w-full flex items-center justify-center space-x-2 px-4 py-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/25 border border-rose-500/20 text-rose-300 hover:text-white font-semibold transition-all duration-300 hover:-translate-y-0.5 cursor-pointer">
-                    <i class="fa-solid fa-sign-out-alt"></i>
-                    <span>Keluar</span>
-                </button>
-            </form>
-        </div>
-        @endauth
-    </aside>
+                <!-- Logout Action -->
+                <div class="mt-auto pt-6 border-t border-white/10">
+                    <form action="{{ route('logout') }}" method="POST" class="w-full">
+                        @csrf
+                        <button type="submit" class="w-full flex items-center justify-center space-x-2 px-4 py-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/25 border border-rose-500/20 text-rose-300 hover:text-white font-semibold transition-all duration-300 hover:-translate-y-0.5 cursor-pointer">
+                            <i class="fa-solid fa-sign-out-alt"></i>
+                            <span>Keluar</span>
+                        </button>
+                    </form>
+                </div>
+            </aside>
+        @endif
+    @endauth
 
     <!-- Main Content Area -->
     <main class="flex-1 flex flex-col min-h-screen overflow-y-auto relative">
         
-        <!-- Header Banner / Top Bar -->
-        <header class="hidden md:flex items-center justify-between px-8 py-5 bg-transparent border-b border-white/5 z-10">
-            <div>
-                <h1 class="text-2xl font-bold tracking-tight">@yield('page_header', 'Dashboard')</h1>
-                <p class="text-xs text-white/50 mt-0.5">Pantau kesehatan diri dan perjalanan Anda secara berkala.</p>
-            </div>
-            
-            <div class="flex items-center space-x-4">
-                <!-- Date display -->
-                <div class="text-right hidden lg:block">
-                    <p class="text-xs text-white/40">Hari ini</p>
-                    <p class="text-sm font-semibold text-white/95">{{ now()->translatedFormat('l, d F Y') }}</p>
-                </div>
-            </div>
-        </header>
+        <!-- Header Banner for Admin only (since Masyarakat has clean Top Bar) -->
+        @auth
+            @if(Auth::user()->role === 'admin')
+                <header class="hidden md:flex items-center justify-between px-8 py-5 bg-transparent border-b border-white/5 z-10">
+                    <div>
+                        <h1 class="text-2xl font-bold tracking-tight">@yield('page_header', 'Dashboard')</h1>
+                        <p class="text-xs text-white/50 mt-0.5">Panel pemantauan global untuk data log perjalanan masyarakat.</p>
+                    </div>
+                    
+                    <div class="text-right hidden lg:block">
+                        <p class="text-xs text-white/40 font-medium">Hari ini</p>
+                        <p class="text-sm font-semibold text-white/90">{{ now()->translatedFormat('l, d F Y') }}</p>
+                    </div>
+                </header>
+            @endif
+        @endauth
 
         <!-- Dynamic Content Body -->
-        <div class="flex-1 p-6 md:p-8 body-font">
+        <div class="flex-1 p-4 sm:p-6 md:p-8 {{ Auth::check() && Auth::user()->role === 'masyarakat' ? 'max-w-7xl mx-auto w-full' : '' }} body-font">
             
             <!-- Toast Notifications -->
             @if(session('success'))
@@ -179,13 +213,13 @@
         </div>
 
         <!-- Footer -->
-        <footer class="mt-auto px-8 py-5 border-t border-white/5 bg-transparent flex flex-col sm:flex-row items-center justify-between text-xs text-white/30">
+        <footer class="mt-auto px-8 py-5 border-t border-white/5 bg-transparent flex flex-col sm:flex-row items-center justify-between text-xs text-white/30 {{ Auth::check() && Auth::user()->role === 'masyarakat' ? 'max-w-7xl mx-auto w-full' : '' }}">
             <p>&copy; {{ date('Y') }} Langkah Sehat. Seluruh hak cipta dilindungi.</p>
             <p class="mt-1 sm:mt-0">Didesain dengan tema Glassmorphism premium.</p>
         </footer>
     </main>
 
-    <!-- Script for mobile menu toggle -->
+    <!-- Script for mobile menu toggle (Admin only) -->
     <script>
         document.getElementById('mobile-menu-toggle')?.addEventListener('click', function() {
             const sidebar = document.getElementById('sidebar');
