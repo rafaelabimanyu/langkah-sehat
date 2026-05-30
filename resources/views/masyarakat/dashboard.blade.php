@@ -13,9 +13,22 @@
         
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between relative z-10 gap-6">
             <div class="flex items-center space-x-4">
-                <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-[#4a7a8a] text-2xl font-bold shadow-md border border-slate-100 shrink-0">
-                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                </div>
+                <a href="{{ route('profile.edit') }}" class="group/avatar relative block w-16 h-16 rounded-full shrink-0 shadow-md border border-slate-100 bg-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-105">
+                    @if(Auth::user()->avatar)
+                        <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="{{ Auth::user()->name }}" class="w-full h-full object-cover transition-all duration-500 group-hover/avatar:scale-110">
+                    @else
+                        <div class="w-full h-full flex items-center justify-center text-[#4a7a8a] text-2xl font-black tracking-tight select-none transition-all duration-500 group-hover/avatar:scale-110">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        </div>
+                    @endif
+
+                    <div class="absolute inset-0 bg-[#1a365d]/40 opacity-0 group-hover/avatar:opacity-100 flex flex-col items-center justify-center text-white transition-opacity duration-300 ease-out backdrop-blur-[2px]">
+                        <i class="fa-solid fa-user-pen text-xs mb-0.5 transform translate-y-2 group-hover/avatar:translate-y-0 transition-transform duration-300 ease-out"></i>
+                        <span class="text-[8px] font-black uppercase tracking-widest scale-90 transform translate-y-2 group-hover/avatar:translate-y-0 transition-transform duration-300 ease-out">
+                            {{ __('Edit') }}
+                        </span>
+                    </div>
+                </a>
                 <div>
                     <h2 class="text-2xl font-extrabold tracking-tight text-[#1a365d]">{{ __('Halo, :name!', ['name' => Auth::user()->name]) }}</h2>
                     <p class="text-sm text-slate-500 mt-1 flex items-center">
