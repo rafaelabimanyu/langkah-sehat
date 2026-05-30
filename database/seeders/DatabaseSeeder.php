@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Create Admin
+        // 1. Create Admins
         $admin = User::create([
             'name' => 'Admin HealthyWay',
             'email' => 'admin@healthyway.com',
@@ -23,7 +23,22 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
+        // Premium Admin Account for Screen Testing
+        $adminAraxa = User::create([
+            'name' => 'Aranxa Admin',
+            'email' => 'aranxa.admin@healthyway.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'role' => 'admin',
+        ]);
+
         // 2. Create Masyarakat Users
+        $araxa = User::create([
+            'name' => 'Aranxa',
+            'email' => 'aranxa@healthyway.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'role' => 'masyarakat',
+        ]);
+
         $budi = User::create([
             'name' => 'Budi Santoso',
             'email' => 'budi@healthyway.com',
@@ -80,5 +95,7 @@ class DatabaseSeeder extends Seeder
                 'catatan' => 'Menebus resep obat penurun demam.',
             ],
         ]);
+
+        // Note: Araxa begins as a fresh user with 0 logs to test our new premium chart empty state view.
     }
 }
