@@ -18,70 +18,65 @@
 
 ## 🌟 Project Context & Overview
 
-**HealthyWay** is a premium, beautifully designed health and travel logging application built to help users seamlessly track their daily physical mobility and body temperature. 
+**HealthyWay** is an enterprise-grade, beautifully crafted health and travel logging application engineered to help users seamlessly track physical mobility and body temperature anomalies. 
 
-Born out of the necessity to monitor health metrics during travel, the platform resolves the pain point of scattered health data by providing a centralized, secure, and visually stunning (Luxury Light Medical) dashboard. It allows individuals to log data effortlessly and enables administrators to monitor global health trends for early anomaly detection.
+Built with a state-of-the-art **Premium Luxury Light Medical** UI/UX token grid, the platform eliminates scattered medical records by providing a centralized, secure, fluid, and highly interactive application shell. It enables citizens to track logs intuitively and empowers health administrators with deep analytical governance mechanisms to spot epidemiological anomalies early.
 
 ---
 
-## 📖 Core Feature Manual: Masyarakat (User)
+## 🎨 Advanced UI/UX & Interaction Design Tokens
 
-As a registered user, you have access to a private, secure vault for your health logs.
+The application features a tailored micro-interaction network built for premium sensory responses:
+- **Triple-Stage Entrance Animation System:** Integrates a luxurious glassmorphic full-screen pre-loader curtain, fluid container kinetic zoom fades, and staggered text inflows managed via hardware-accelerated Alpine.js triggers.
+- **Neon Glass Capsule Chart:** Completely redesigned weekly temperature chart using a strict 7-column vertical grid system. Bars feature smooth anchor locking to baseline boundaries, dynamic gradient glows depending on fever intensity, and high-fidelity hovering tooltips.
+- **Differentiated Footers System:** Houses three location-specific footer experiences (SaaS multi-column marketing format on landing page, compact user hub index on dashboards, and an operational server clock grid on admin panels).
+- **Global Dual Language Switcher (ID/EN):** Full cross-role localized session binding utilizing custom middleware filters, making 100% of the screen text instantly adaptable.
 
-### 1. Dashboard Overview & Analytics
-- **Greeting Card:** Displays your current health status based on your latest log.
-- **Weekly Trend Chart:** A visual bar chart mapping your average temperature over the last 7 days.
-- **Quick Metrics:** Instantly view your total logs and overall average temperature.
+---
+
+## 📖 Core Feature Manual: Masyarakat (User Hub)
+
+As a registered citizen, you have access to a secure digital health vault.
+
+### 1. Dashboard Overview & Contextual Hub
+- **Greeting Card:** Displays real-time calendar parameters and current status badges. The name avatar is transformed into an interactive luxury button acting as the entry point for profile updates.
+- **Status Imun Widget:** Dynamically calculates historical averages to score user travel readiness.
+- **Recent Medical Notes:** Isolates latest text variables submitted from physician logs.
+- **Interactive Chart & Empty States:** Automatically overlays supportive graphics when a new account is registered with zero logs, preventing layout breakages.
 
 ### 2. Logging a Travel Record (Catat Perjalanan)
-- Navigate to **"Catat Perjalanan"** via the top navigation bar.
-- The form auto-fills the current Date and Time for convenience.
-- Input your **Destination/Location**, **Body Temperature (°C)**, and any **Additional Notes** (e.g., "Feeling dizzy", "Routine check").
-- Click **"Simpan Catatan Baru"**. The system instantly evaluates your temperature.
+- Form auto-fittings capture system timestamps.
+- Inputs evaluate **Destination/Location**, **Body Temperature (°C)**, and **Doctor/Personal Notes**.
+- Temperature indicators automatically pulse crimson alerts (`🔴 High >= 37.5°C`) or settle into calming teal gradients (`🟢 Normal < 37.5°C`).
 
-### 3. Understanding Dynamic Temperature Indicators
-The application uses visual cues to alert you of potential health risks:
-- 🟢 **Normal (< 37.5°C):** Displayed in Emerald Green. No immediate action required.
-- 🔴 **Demam / Alert (≥ 37.5°C):** Displayed in Rose Red with a pulsing animation. Indicates a fever.
-
-### 4. Managing & Exporting Logs (Riwayat Log)
-- Go to **"Riwayat Log"** to view a complete, paginated table of your history.
-- Use the **Filter Panel** to search by location, specific dates, or filter out only anomalous (high temp) logs.
-- Need to share data with a doctor? Click **"Cetak Riwayat PDF / Print"** to generate a clean, printer-friendly medical report.
+### 3. Account & Profile Customization
+- Access the secure double-card Profile View to safely mutate names, emails, and update hashed cryptographic password arrays.
+- Includes public file disk image validation layers supporting real-time custom avatar uploads.
 
 ---
 
-## 🛡️ Core Feature Manual: Admin (Administrator)
+## 🛡️ Core Feature Manual: Admin Operations
 
-Administrators act as the global overseers, ensuring data integrity and monitoring macro health trends.
+Administrators act as infrastructure overseers ensuring operational integrity.
 
 ### 1. Global Monitoring Panel
-- **Analytics Grid:** View real-time statistics of total registered users, total global travel logs, and the critical **High Temperature Alert Count**.
-- **Global Logs Table:** A comprehensive view of all travel logs submitted by all users.
+- **Critical Alert Banner:** Top-level, sticky translucent red warning engine that automatically triggers visibility indicators if any user inputs highly anomalous fever indices anywhere on the system.
+- **Global Logs Audit Table:** Comprehensive database tracker mapping inputs across all citizen accounts with active responsive horizontal swipeable limits on mobile screens.
 
-### 2. Auditing & Filtering
-- Use the advanced search filters to query specific users by name/email, track specific dates, or isolate all logs with temperatures ≥ 37.5°C across the entire platform.
-
-### 3. Data Governance
-- If an anomalous or spam log is detected, admins have the authority to permanently delete the specific log directly from the monitoring table via a secure confirmation modal.
-
-### 4. Global User Lifecycle Management
-- Navigate to **"Kelola Pengguna"** to view all registered accounts.
-- Admins can revoke access by deleting user accounts that violate terms of service or are no longer active.
+### 2. Premium PDF Logging Engine
+- Upgrades the **"Cetak Laporan"** utility into a clean invoice-grade structured data sheet. Generates professional metrics tables complete with metadata signature components for medical clearance documentation.
 
 ---
 
-## 🔒 Security Architecture Notes
-
-HealthyWay implements a robust, enterprise-grade 2-layer defense mechanism to guarantee data privacy and system integrity.
+## 🔒 Security & Session Session Architecture
 
 ### Layer 1: Route & Role Middleware (`RoleMiddleware`)
-All routes are protected by Laravel's core authentication and custom Role-Based Access Control (RBAC). 
-- If a `masyarakat` user attempts to access `/admin/dashboard`, the middleware intercepts the request and throws a `403 Forbidden` response.
-- Custom Glassmorphic Error Pages (`403`, `404`, `500`) ensure that even during unauthorized access attempts, the application doesn't leak stack traces and maintains its premium aesthetic.
+All app gates operate behind Laravel's core token authentication and Role-Based Access Control (RBAC). 
+- **Stale Session Protection:** Login modules explicitly forget previous cross-role URLs, forcing secure, automated role routing destinations on account login shifts.
+- **Logout Cleansing:** The logout hook thoroughly invalidates active sessions, flushes security elements, regenerates CSRF forms, and safely shifts view boundaries straight back to the landing page (`/`).
 
-### Layer 2: Controller-Level Ownership Authorization (IDOR Prevention)
-To prevent Insecure Direct Object Reference (IDOR) attacks (e.g., a user manually changing the URL to `/perjalanan/edit/99` to view someone else's log), the `MasyarakatController` implements an explicit ownership guard:
+### Layer 2: IDOR Ownership Prevention
+To safeguard critical data privacy, the `MasyarakatController` binds structural model injection layers to strict user identity validation matrices:
 ```php
 private function authorizeOwnership(Perjalanan $perjalanan): void
 {
@@ -90,13 +85,10 @@ private function authorizeOwnership(Perjalanan $perjalanan): void
     }
 }
 ```
-Furthermore, all data queries on the history and print pages are strictly scoped to `$user->perjalanans()`, making cross-account data leakage impossible.
 
 ---
 
 ## 🚀 Quick Installation & Deployment Guide
-
-Follow these steps to get HealthyWay running on your local machine.
 
 ### Prerequisites
 - PHP 8.2 or higher
@@ -118,10 +110,10 @@ Follow these steps to get HealthyWay running on your local machine.
    cp .env.example .env
    php artisan key:generate
    ```
-   *Make sure to configure your `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` in the `.env` file.*
+   Configure your `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` parameters inside the `.env` file.
 
 3. **Database Migration & Seeding**
-   This command creates the tables and populates the database with the default Admin and test Masyarakat users.
+   Generates production-grade mock data tables loaded with both empty state trackers and historic anomaly records.
    ```bash
    php artisan migrate:fresh --seed
    ```
@@ -131,20 +123,20 @@ Follow these steps to get HealthyWay running on your local machine.
    npm install
    npm run build
    ```
-   *(For active development, you can use `npm run dev` instead of build).*
 
 5. **Serve the Application**
    ```bash
    php artisan serve
    ```
-   *Visit `http://localhost:8000` in your browser.*
-
-### Default Test Credentials (from Seeder)
-- **Admin:** `admin@healthyway.com` / `password`
-- **User 1:** `budi@healthyway.com` / `password`
-- **User 2:** `siti@healthyway.com` / `password`
+   Visit `http://localhost:8000` inside your browser windows.
 
 ---
-<p align="center" style="color: #64748b; font-size: 12px;">
-  &copy; 2026 HealthyWay. Designed with precision and care.
-</p>
+
+### Default Test Credentials (from Seeder Layouts)
+
+* **Primary Admin Tester (Aranxa Admin):** `aranxa.admin@healthyway.com` / `password`
+* **Fresh User Tester (Aranxa - Evaluates Empty Charts):** `aranxa@healthyway.com` / `password`
+* **Historic User 1 (Budi Santoso):** `budi@healthyway.com` / `password`
+* **Historic User 2 (Siti Aminah):** `siti@healthyway.com` / `password`
+
+*Note: Aranxa begins as a fresh user with 0 logs to test our new premium chart empty state view.*
