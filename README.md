@@ -1,8 +1,8 @@
 <div align="center">
-  <div style="background: linear-gradient(to right, #06b6d4, #10b981); padding: 2px; border-radius: 20px; display: inline-block; margin-bottom: 20px;">
-    <div style="background: #020617; padding: 20px 40px; border-radius: 18px; text-align: center;">
-      <h1 style="margin: 0; color: transparent; background: linear-gradient(to right, #67e8f9, #6ee7b7); -webkit-background-clip: text; background-clip: text; font-size: 32px; font-weight: 800;">Langkah Sehat</h1>
-      <p style="margin: 5px 0 0 0; color: #94a3b8; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Premium Self-Tracking App</p>
+  <div style="background: linear-gradient(to right, #4a7a8a, #7da8b6); padding: 2px; border-radius: 20px; display: inline-block; margin-bottom: 20px;">
+    <div style="background: #edf3f6; padding: 20px 40px; border-radius: 18px; text-align: center;">
+      <h1 style="margin: 0; color: transparent; background: linear-gradient(to right, #1a365d, #4a7a8a); -webkit-background-clip: text; background-clip: text; font-size: 32px; font-weight: 800;">HealthyWay</h1>
+      <p style="margin: 5px 0 0 0; color: #1e3a5f; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Premium Self-Tracking App</p>
     </div>
   </div>
 
@@ -18,9 +18,9 @@
 
 ## 🌟 Project Context & Overview
 
-**Langkah Sehat** is a premium, beautifully designed health and travel logging application built to help users seamlessly track their daily physical mobility and body temperature. 
+**HealthyWay** is a premium, beautifully designed health and travel logging application built to help users seamlessly track their daily physical mobility and body temperature. 
 
-Born out of the necessity to monitor health metrics during travel, the platform resolves the pain point of scattered health data by providing a centralized, secure, and visually stunning (Glassmorphism-inspired) dashboard. It allows individuals to log data effortlessly and enables administrators to monitor global health trends for early anomaly detection.
+Born out of the necessity to monitor health metrics during travel, the platform resolves the pain point of scattered health data by providing a centralized, secure, and visually stunning (Luxury Light Medical) dashboard. It allows individuals to log data effortlessly and enables administrators to monitor global health trends for early anomaly detection.
 
 ---
 
@@ -73,7 +73,7 @@ Administrators act as the global overseers, ensuring data integrity and monitori
 
 ## 🔒 Security Architecture Notes
 
-Langkah Sehat implements a robust, enterprise-grade 2-layer defense mechanism to guarantee data privacy and system integrity.
+HealthyWay implements a robust, enterprise-grade 2-layer defense mechanism to guarantee data privacy and system integrity.
 
 ### Layer 1: Route & Role Middleware (`RoleMiddleware`)
 All routes are protected by Laravel's core authentication and custom Role-Based Access Control (RBAC). 
@@ -96,7 +96,7 @@ Furthermore, all data queries on the history and print pages are strictly scoped
 
 ## 🚀 Quick Installation & Deployment Guide
 
-Follow these steps to get Langkah Sehat running on your local machine.
+Follow these steps to get HealthyWay running on your local machine.
 
 ### Prerequisites
 - PHP 8.2 or higher
@@ -109,7 +109,7 @@ Follow these steps to get Langkah Sehat running on your local machine.
 1. **Clone & Install PHP Dependencies**
    ```bash
    git clone <repository-url>
-   cd langkah-sehat
+   cd healthyway
    composer install
    ```
 
@@ -140,11 +140,11 @@ Follow these steps to get Langkah Sehat running on your local machine.
    *Visit `http://localhost:8000` in your browser.*
 
 ### Default Test Credentials (from Seeder)
-- **Admin:** `admin@langkahsehat.com` / `password`
-- **User 1:** `budi@langkahsehat.com` / `password`
-- **User 2:** `siti@langkahsehat.com` / `password`
+- **Admin:** `admin@healthyway.com` / `password`
+- **User 1:** `budi@healthyway.com` / `password`
+- **User 2:** `siti@healthyway.com` / `password`
 
 ---
 <p align="center" style="color: #64748b; font-size: 12px;">
-  &copy; 2026 Langkah Sehat. Designed with precision and care.
+  &copy; 2026 HealthyWay. Designed with precision and care.
 </p>

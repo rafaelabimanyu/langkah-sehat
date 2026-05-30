@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>500 - Kesalahan Sistem | Langkah Sehat</title>
-    <meta name="description" content="Terjadi kesalahan internal pada server Langkah Sehat.">
+    <title>500 - Kesalahan Sistem | HealthyWay</title>
+    <meta name="description" content="Terjadi kesalahan internal pada server HealthyWay.">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,8 +22,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(to top right, #020617, #1e1b4b, #1e3a5f);
-            color: white;
+            background: #edf3f6;
+            color: #1e293b;
             overflow: hidden;
             position: relative;
         }
@@ -33,9 +33,10 @@
             filter: blur(80px);
             opacity: 0.12;
             animation: float 8s ease-in-out infinite;
+            z-index: 1;
         }
-        .orb-1 { width: 350px; height: 350px; background: #ef4444; top: -100px; right: -80px; animation-delay: 0s; }
-        .orb-2 { width: 250px; height: 250px; background: #f97316; bottom: -60px; left: -60px; animation-delay: 2s; }
+        .orb-1 { width: 350px; height: 350px; background: #e11d48; top: -100px; right: -80px; animation-delay: 0s; }
+        .orb-2 { width: 250px; height: 250px; background: #ea580c; bottom: -60px; left: -60px; animation-delay: 2s; }
         @keyframes float {
             0%, 100% { transform: translateY(0) scale(1); }
             50% { transform: translateY(-20px) scale(1.05); }
@@ -45,15 +46,15 @@
             to { transform: rotate(360deg); }
         }
         @keyframes pulse-ring {
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.3); }
-            70% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.2); }
+            70% { box-shadow: 0 0 0 12px rgba(225, 29, 72, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
         }
         .glass-card {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 24px;
             padding: 48px 40px;
             max-width: 500px;
@@ -61,43 +62,43 @@
             text-align: center;
             position: relative;
             z-index: 10;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            box-shadow: 0 10px 30px rgba(148, 163, 184, 0.15);
         }
         .error-code {
             font-size: 120px;
             font-weight: 900;
             line-height: 1;
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(249, 115, 22, 0.15));
+            background: linear-gradient(135deg, #e11d48, #ea580c);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             letter-spacing: -4px;
             user-select: none;
-            filter: blur(1px);
+            filter: blur(0.5px);
             margin-bottom: -20px;
         }
         .error-icon {
             width: 64px; height: 64px;
             border-radius: 16px;
-            background: rgba(239, 68, 68, 0.12);
-            border: 1px solid rgba(239, 68, 68, 0.25);
+            background: rgba(225, 29, 72, 0.1);
+            border: 1px solid rgba(225, 29, 72, 0.2);
             display: flex; align-items: center; justify-content: center;
             margin: 0 auto 20px;
-            color: #f87171;
+            color: #e11d48;
             font-size: 28px;
             animation: pulse-ring 2s ease-out infinite;
         }
         .error-icon i {
             animation: spin-slow 4s linear infinite;
         }
-        h1 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+        h1 { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: #1a365d; }
         .subtitle { 
-            font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.7; 
+            font-size: 13px; color: #64748b; line-height: 1.7; 
             font-family: 'Inter', sans-serif; margin-bottom: 24px; 
         }
         .status-box {
-            background: rgba(239, 68, 68, 0.06);
-            border: 1px solid rgba(239, 68, 68, 0.15);
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 28px;
@@ -110,12 +111,12 @@
             font-family: 'Inter', sans-serif;
             padding: 4px 0;
         }
-        .status-row .label { color: rgba(255,255,255,0.4); }
-        .status-row .value { color: rgba(255,255,255,0.7); font-weight: 600; }
-        .status-row .value.error { color: #f87171; }
+        .status-row .label { color: #64748b; }
+        .status-row .value { color: #1e293b; font-weight: 600; }
+        .status-row .value.error { color: #e11d48; }
         .divider {
             border: none;
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid #e2e8f0;
             margin: 8px 0;
         }
         .btn-group {
@@ -129,37 +130,38 @@
             align-items: center;
             gap: 8px;
             padding: 12px 28px;
-            background: linear-gradient(135deg, #06b6d4, #10b981);
-            color: #020617;
+            background: #4a7a8a;
+            color: #ffffff;
             font-weight: 700;
             font-size: 13px;
-            border-radius: 12px;
+            border-radius: 999px;
             text-decoration: none;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.2);
+            box-shadow: 0 4px 15px rgba(74, 122, 138, 0.2);
         }
         .back-btn:hover {
+            background: #3b6370;
             transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+            box-shadow: 0 6px 20px rgba(74, 122, 138, 0.3);
         }
         .retry-btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: rgba(255, 255, 255, 0.7);
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #475569;
             font-weight: 600;
             font-size: 13px;
-            border-radius: 12px;
+            border-radius: 999px;
             text-decoration: none;
             transition: all 0.3s;
             cursor: pointer;
         }
         .retry-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
+            background: #f1f5f9;
+            color: #1e293b;
             transform: translateY(-2px);
         }
     </style>

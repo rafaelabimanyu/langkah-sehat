@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Halaman Tidak Ditemukan | Langkah Sehat</title>
-    <meta name="description" content="Halaman yang Anda cari tidak dapat ditemukan di Langkah Sehat.">
+    <title>404 - Halaman Tidak Ditemukan | HealthyWay</title>
+    <meta name="description" content="Halaman yang Anda cari tidak dapat ditemukan di HealthyWay.">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,8 +22,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(to top right, #020617, #1e1b4b, #1e3a5f);
-            color: white;
+            background: #edf3f6;
+            color: #1e293b;
             overflow: hidden;
             position: relative;
         }
@@ -33,23 +33,24 @@
             filter: blur(80px);
             opacity: 0.15;
             animation: float 8s ease-in-out infinite;
+            z-index: 1;
         }
-        .orb-1 { width: 300px; height: 300px; background: #06b6d4; top: -80px; left: -60px; animation-delay: 0s; }
-        .orb-2 { width: 200px; height: 200px; background: #8b5cf6; bottom: -40px; right: -40px; animation-delay: 2s; }
-        .orb-3 { width: 150px; height: 150px; background: #10b981; top: 50%; left: 50%; animation-delay: 4s; }
+        .orb-1 { width: 300px; height: 300px; background: #7da8b6; top: -80px; left: -60px; animation-delay: 0s; }
+        .orb-2 { width: 200px; height: 200px; background: #4a7a8a; bottom: -40px; right: -40px; animation-delay: 2s; }
+        .orb-3 { width: 150px; height: 150px; background: #1a365d; top: 50%; left: 50%; animation-delay: 4s; }
         @keyframes float {
             0%, 100% { transform: translateY(0) scale(1); }
             50% { transform: translateY(-20px) scale(1.05); }
         }
         @keyframes pulse-glow {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
         }
         .glass-card {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 24px;
             padding: 48px 40px;
             max-width: 520px;
@@ -57,41 +58,40 @@
             text-align: center;
             position: relative;
             z-index: 10;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            box-shadow: 0 10px 30px rgba(148, 163, 184, 0.15);
         }
         .error-code {
             font-size: 140px;
             font-weight: 900;
             line-height: 1;
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(99, 102, 241, 0.15));
+            background: linear-gradient(135deg, #4a7a8a, #7da8b6);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             letter-spacing: -6px;
             user-select: none;
-            filter: blur(1.5px);
+            filter: blur(0.5px);
             margin-bottom: -24px;
         }
         .error-icon {
             width: 64px; height: 64px;
             border-radius: 16px;
-            background: rgba(6, 182, 212, 0.15);
-            border: 1px solid rgba(6, 182, 212, 0.3);
+            background: rgba(74, 122, 138, 0.1);
+            border: 1px solid rgba(74, 122, 138, 0.2);
             display: flex; align-items: center; justify-content: center;
             margin: 0 auto 20px;
-            color: #22d3ee;
+            color: #4a7a8a;
             font-size: 28px;
-            box-shadow: 0 0 25px rgba(6, 182, 212, 0.15);
             animation: pulse-glow 3s ease-in-out infinite;
         }
-        h1 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+        h1 { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: #1a365d; }
         .subtitle { 
-            font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.7; 
+            font-size: 13px; color: #64748b; line-height: 1.7; 
             font-family: 'Inter', sans-serif; margin-bottom: 28px; 
         }
         .search-hint {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
             border-radius: 12px;
             padding: 14px 16px;
             margin-bottom: 28px;
@@ -102,16 +102,16 @@
         }
         .search-hint .hint-icon {
             width: 36px; height: 36px; border-radius: 10px;
-            background: rgba(139, 92, 246, 0.15);
-            border: 1px solid rgba(139, 92, 246, 0.25);
+            background: rgba(74, 122, 138, 0.1);
+            border: 1px solid rgba(74, 122, 138, 0.2);
             display: flex; align-items: center; justify-content: center;
-            color: #a78bfa; font-size: 14px; flex-shrink: 0;
+            color: #4a7a8a; font-size: 14px; flex-shrink: 0;
         }
         .search-hint .hint-text {
-            font-size: 11px; color: rgba(255,255,255,0.45);
+            font-size: 11px; color: #64748b;
             font-family: 'Inter', sans-serif; line-height: 1.5;
         }
-        .search-hint .hint-text strong { color: rgba(255,255,255,0.7); }
+        .search-hint .hint-text strong { color: #1e293b; }
         .btn-group {
             display: flex;
             gap: 12px;
@@ -123,36 +123,37 @@
             align-items: center;
             gap: 8px;
             padding: 12px 28px;
-            background: linear-gradient(135deg, #06b6d4, #10b981);
-            color: #020617;
+            background: #4a7a8a;
+            color: #ffffff;
             font-weight: 700;
             font-size: 13px;
-            border-radius: 12px;
+            border-radius: 999px;
             text-decoration: none;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.2);
+            box-shadow: 0 4px 15px rgba(74, 122, 138, 0.2);
         }
         .back-btn:hover {
+            background: #3b6370;
             transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+            box-shadow: 0 6px 20px rgba(74, 122, 138, 0.3);
         }
         .secondary-btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: rgba(255, 255, 255, 0.7);
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #475569;
             font-weight: 600;
             font-size: 13px;
-            border-radius: 12px;
+            border-radius: 999px;
             text-decoration: none;
             transition: all 0.3s;
         }
         .secondary-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
+            background: #f1f5f9;
+            color: #1e293b;
             transform: translateY(-2px);
         }
     </style>

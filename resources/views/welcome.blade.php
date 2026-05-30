@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Langkah Sehat - Catatan Kesehatan Perjalanan</title>
+    <title>HealthyWay - Catatan Kesehatan Perjalanan</title>
     
     <!-- Google Fonts: Outfit & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,41 +27,41 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-tr from-indigo-900 via-slate-950 to-blue-900 min-h-screen text-white base-font flex flex-col justify-between antialiased overflow-x-hidden">
+<body class="bg-[#edf3f6] min-h-screen text-[#1e293b] font-sans flex flex-col justify-between antialiased overflow-x-hidden">
 
-    <!-- Glowing Background blobs -->
-    <div class="absolute top-1/4 left-1/10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl -z-10"></div>
-    <div class="absolute bottom-1/4 right-1/10 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl -z-10"></div>
+    <!-- Soft Light Blobs -->
+    <div class="absolute top-1/4 left-1/10 w-96 h-96 bg-[#7da8b6]/20 rounded-full blur-3xl -z-10"></div>
+    <div class="absolute bottom-1/4 right-1/10 w-96 h-96 bg-[#5c8d9d]/10 rounded-full blur-3xl -z-10"></div>
 
     <!-- Glassmorphic Navbar -->
-    <header class="w-full px-6 py-5 bg-white/5 backdrop-blur-md border-b border-white/10 sticky top-0 z-50">
+    <header class="w-full px-6 py-5 bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="#" class="flex items-center space-x-2.5">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 to-emerald-400 flex items-center justify-center shadow-lg shadow-cyan-500/30">
-                    <i class="fa-solid fa-heart-pulse text-slate-950 text-xl"></i>
+                <div class="w-10 h-10 rounded-full bg-[#5c8d9d]/10 flex items-center justify-center border border-[#5c8d9d]/20">
+                    <i class="fa-solid fa-heart-pulse text-[#4a7a8a] text-xl"></i>
                 </div>
                 <div class="flex flex-col">
-                    <span class="font-extrabold text-lg tracking-wider bg-gradient-to-r from-cyan-300 to-emerald-300 bg-clip-text text-transparent">Langkah Sehat</span>
-                    <span class="text-[9px] text-white/50 tracking-widest font-semibold uppercase -mt-0.5">Self-Tracking App</span>
+                    <span class="font-extrabold text-lg tracking-wider text-[#1a365d]">HealthyWay</span>
+                    <span class="text-[9px] text-slate-500 tracking-widest font-semibold uppercase -mt-0.5">Self-Tracking App</span>
                 </div>
             </a>
             
             <div class="flex items-center space-x-4">
                 @auth
                     @if(Auth::user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5">
+                        <a href="{{ route('admin.dashboard') }}" class="px-6 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-full text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-md">
                             Dashboard Admin
                         </a>
                     @else
-                        <a href="{{ route('masyarakat.dashboard') }}" class="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-600 hover:to-emerald-600 text-slate-950 font-bold rounded-xl text-sm transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-cyan-500/25">
+                        <a href="{{ route('masyarakat.dashboard') }}" class="px-6 py-2.5 bg-[#4a7a8a] hover:bg-[#3b6370] text-white font-bold rounded-full text-sm transition-all duration-300 shadow-md hover:shadow-lg">
                             Dashboard Saya
                         </a>
                     @endif
                 @else
-                    <a href="/login" class="px-5 py-2.5 bg-white/5 hover:bg-white/15 border border-white/10 rounded-xl text-sm font-semibold text-white/80 hover:text-white transition-all duration-300 hover:-translate-y-0.5">
+                    <a href="/login" class="px-6 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 rounded-full text-sm font-semibold text-slate-600 hover:text-slate-800 transition-all duration-300 shadow-sm">
                         Masuk
                     </a>
-                    <a href="/register" class="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-600 hover:to-emerald-600 text-slate-950 font-bold rounded-xl text-sm transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-cyan-500/25">
+                    <a href="/register" class="px-6 py-2.5 bg-[#4a7a8a] hover:bg-[#3b6370] text-white font-bold rounded-full text-sm transition-all duration-300 shadow-md hover:shadow-lg">
                         Daftar Baru
                     </a>
                 @endauth
@@ -74,59 +74,59 @@
         
         <!-- Hero Text -->
         <div class="max-w-3xl space-y-6 mb-12">
-            <span class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 tracking-wider uppercase">
+            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold text-[#3b6370] bg-[#7da8b6]/20 border border-[#7da8b6]/30 tracking-wider uppercase">
                 <i class="fa-solid fa-shield-halved mr-2"></i> Aplikasi Pemantauan Mandiri
             </span>
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-[#1a365d]">
                 Satu Langkah Kecil untuk <br class="hidden sm:inline">
-                <span class="bg-gradient-to-r from-cyan-300 via-emerald-300 to-teal-300 bg-clip-text text-transparent">Catatan Kesehatan Perjalanan</span> Anda
+                <span class="text-[#4a7a8a]">Catatan Kesehatan Perjalanan</span> Anda
             </h1>
-            <p class="text-base sm:text-lg text-white/60 body-font max-w-2xl mx-auto leading-relaxed">
+            <p class="text-base sm:text-lg text-slate-600 body-font max-w-2xl mx-auto leading-relaxed">
                 Log perjalanan yang mudah, pencatatan suhu tubuh yang akurat, serta pengawasan kesehatan berkala terintegrasi untuk masyarakat yang sehat dan terlindungi.
             </p>
         </div>
 
         <!-- Real-time Global Counter -->
-        <div class="bg-white/10 backdrop-blur-md border border-white/20 shadow-xl rounded-2xl p-6 max-w-sm w-full mb-16 hover:border-white/30 transition-all duration-300">
-            <p class="text-xs font-semibold text-white/50 tracking-widest uppercase mb-1">Total Log Perjalanan Global</p>
-            <h3 class="text-4xl font-black text-cyan-300 tracking-wider">
+        <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-xl rounded-3xl p-6 max-w-sm w-full mb-16 hover:shadow-2xl transition-all duration-300">
+            <p class="text-xs font-semibold text-slate-500 tracking-widest uppercase mb-1">Total Log Perjalanan Global</p>
+            <h3 class="text-4xl font-black text-[#4a7a8a] tracking-wider">
                 {{ number_format($totalLogs) }}
             </h3>
-            <p class="text-[10px] text-white/30 mt-1.5 body-font">Catatan perjalanan yang telah berhasil dihimpun oleh platform</p>
+            <p class="text-[10px] text-slate-400 mt-1.5 body-font">Catatan perjalanan yang telah berhasil dihimpun oleh platform</p>
         </div>
 
         <!-- Feature Overview Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full text-left max-w-6xl body-font">
             
             <!-- Feature 1: Quick Logging -->
-            <div class="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 shadow-lg rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white/10 group">
-                <div class="w-12 h-12 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center mb-5 group-hover:bg-cyan-500/30 transition-all">
+            <div class="bg-white/70 backdrop-blur-md border border-slate-200 shadow-lg rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white group">
+                <div class="w-12 h-12 rounded-full bg-[#5c8d9d]/10 text-[#4a7a8a] flex items-center justify-center mb-5 group-hover:bg-[#5c8d9d]/20 transition-all border border-[#5c8d9d]/20">
                     <i class="fa-solid fa-map-location-dot text-xl"></i>
                 </div>
-                <h4 class="font-bold text-lg text-white mb-2 base-font">Quick Logging</h4>
-                <p class="text-sm text-white/60 leading-relaxed">
+                <h4 class="font-bold text-lg text-[#1e3a5f] mb-2 base-font">Quick Logging</h4>
+                <p class="text-sm text-slate-600 leading-relaxed">
                     Catat riwayat perjalanan Anda secara cepat, mudah, dan teratur kapan saja dan di mana saja dalam satu dasbor.
                 </p>
             </div>
 
             <!-- Feature 2: Medical Temp Tracking -->
-            <div class="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 shadow-lg rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white/10 group">
-                <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center mb-5 group-hover:bg-emerald-500/30 transition-all">
+            <div class="bg-white/70 backdrop-blur-md border border-slate-200 shadow-lg rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white group">
+                <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5 group-hover:bg-emerald-100 transition-all border border-emerald-200">
                     <i class="fa-solid fa-temperature-three-quarters text-xl"></i>
                 </div>
-                <h4 class="font-bold text-lg text-white mb-2 base-font">Medical Temp Tracking</h4>
-                <p class="text-sm text-white/60 leading-relaxed">
+                <h4 class="font-bold text-lg text-[#1e3a5f] mb-2 base-font">Medical Temp Tracking</h4>
+                <p class="text-sm text-slate-600 leading-relaxed">
                     Pantau suhu tubuh dan catatan dokter secara berkala untuk menjaga kesehatan tubuh dan mendapatkan notifikasi peringatan dini.
                 </p>
             </div>
 
             <!-- Feature 3: Secured Privacy -->
-            <div class="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 shadow-lg rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white/10 group">
-                <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-300 flex items-center justify-center mb-5 group-hover:bg-blue-500/30 transition-all">
+            <div class="bg-white/70 backdrop-blur-md border border-slate-200 shadow-lg rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white group">
+                <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-5 group-hover:bg-blue-100 transition-all border border-blue-200">
                     <i class="fa-solid fa-user-lock text-xl"></i>
                 </div>
-                <h4 class="font-bold text-lg text-white mb-2 base-font">Secured Privacy</h4>
-                <p class="text-sm text-white/60 leading-relaxed">
+                <h4 class="font-bold text-lg text-[#1e3a5f] mb-2 base-font">Secured Privacy</h4>
+                <p class="text-sm text-slate-600 leading-relaxed">
                     Data perjalanan pribadi dan catatan konsultasi medis Anda dilindungi secara ketat demi keamanan hak privasi Anda.
                 </p>
             </div>
@@ -136,10 +136,10 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full px-6 py-6 border-t border-white/5 text-center text-xs text-white/30 body-font">
+    <footer class="w-full px-6 py-6 border-t border-slate-200 text-center text-xs text-slate-500 body-font bg-white/50">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between">
-            <p>&copy; {{ date('Y') }} Langkah Sehat. Seluruh hak cipta dilindungi.</p>
-            <p class="mt-1 sm:mt-0">Premium Glassmorphism Design.</p>
+            <p>&copy; {{ date('Y') }} HealthyWay. Seluruh hak cipta dilindungi.</p>
+            <p class="mt-1 sm:mt-0">Premium Light Medical Design.</p>
         </div>
     </footer>
 

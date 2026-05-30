@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
     {
         // 1. Create Admin
         $admin = User::create([
-            'name' => 'Admin Langkah Sehat',
-            'email' => 'admin@langkahsehat.com',
+            'name' => 'Admin HealthyWay',
+            'email' => 'admin@healthyway.com',
             'password' => \Illuminate\Support\Facades\Hash::make('password'),
             'role' => 'admin',
         ]);
@@ -26,14 +26,14 @@ class DatabaseSeeder extends Seeder
         // 2. Create Masyarakat Users
         $budi = User::create([
             'name' => 'Budi Santoso',
-            'email' => 'budi@langkahsehat.com',
+            'email' => 'budi@healthyway.com',
             'password' => \Illuminate\Support\Facades\Hash::make('password'),
             'role' => 'masyarakat',
         ]);
 
         $siti = User::create([
             'name' => 'Siti Aminah',
-            'email' => 'siti@langkahsehat.com',
+            'email' => 'siti@healthyway.com',
             'password' => \Illuminate\Support\Facades\Hash::make('password'),
             'role' => 'masyarakat',
         ]);

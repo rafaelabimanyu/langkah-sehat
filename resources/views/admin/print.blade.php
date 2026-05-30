@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cetak Laporan - Langkah Sehat</title>
+    <title>Cetak Laporan - HealthyWay</title>
     
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            color: #0f172a;
+            color: #1e293b;
             background-color: #ffffff;
             margin: 0;
             padding: 40px;
@@ -23,7 +23,7 @@
         .header {
             text-align: center;
             margin-bottom: 30px;
-            border-bottom: 2px solid #0f172a;
+            border-bottom: 2px solid #4a7a8a;
             padding-bottom: 15px;
         }
         
@@ -33,6 +33,7 @@
             text-transform: uppercase;
             font-weight: 700;
             letter-spacing: 0.5px;
+            color: #1a365d;
         }
         
         .header p {
@@ -46,7 +47,7 @@
             justify-content: space-between;
             margin-bottom: 20px;
             font-size: 11px;
-            color: #334155;
+            color: #475569;
         }
         
         .meta-info p {
@@ -60,13 +61,14 @@
         }
         
         th {
-            background-color: #f1f5f9;
+            background-color: #f8fafc;
             border: 1px solid #cbd5e1;
             padding: 10px 8px;
             font-weight: 600;
             text-align: left;
             font-size: 10px;
             text-transform: uppercase;
+            color: #475569;
         }
         
         td {
@@ -76,7 +78,7 @@
         }
         
         tr:nth-child(even) {
-            background-color: #f8fafc;
+            background-color: #fdfdfd;
         }
         
         .badge {
@@ -103,7 +105,7 @@
             margin-top: 50px;
             text-align: right;
             font-size: 11px;
-            color: #475569;
+            color: #64748b;
         }
         
         .print-btn-container {
@@ -113,13 +115,13 @@
         }
         
         .print-btn {
-            background-color: #0f172a;
+            background-color: #4a7a8a;
             color: #ffffff;
             border: none;
             padding: 10px 20px;
             font-size: 12px;
             font-weight: 600;
-            border-radius: 6px;
+            border-radius: 20px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
@@ -128,7 +130,7 @@
         }
         
         .print-btn:hover {
-            background-color: #1e293b;
+            background-color: #3b6370;
         }
 
         @media print {
@@ -153,7 +155,7 @@
     <!-- Document Header -->
     <div class="header">
         <h1>Laporan Rekapitulasi Perjalanan & Suhu Tubuh</h1>
-        <p>Aplikasi Kesehatan Perjalanan Mandiri — Langkah Sehat</p>
+        <p>Aplikasi Kesehatan Perjalanan Mandiri — HealthyWay</p>
     </div>
 
     <!-- Metadata Details -->
@@ -229,7 +231,7 @@
 
     <!-- Sign-off area -->
     <div class="footer">
-        <p>Laporan ini dihasilkan secara otomatis oleh Sistem Langkah Sehat.</p>
+        <p>Laporan ini dihasilkan secara otomatis oleh Sistem HealthyWay.</p>
         <p style="margin-top: 40px; font-weight: 600;">( ___________________________ )</p>
         <p style="font-size: 9px; margin-top: 5px; color: #94a3b8;">Tanda tangan Penanggung Jawab Admin</p>
     </div>
