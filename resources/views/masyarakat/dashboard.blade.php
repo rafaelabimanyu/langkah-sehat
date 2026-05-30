@@ -131,51 +131,59 @@
                 </div>
             </div>
             
-            <div class="h-64 w-full flex items-end justify-between space-x-2 pt-4 relative">
-                <!-- Target lines -->
-                <div class="absolute inset-x-0 bottom-0 top-0 flex flex-col justify-between z-0">
-                    <div class="w-full h-px bg-slate-200/50 flex items-center"><span class="text-[9px] text-rose-400 font-bold -mt-4 ml-1">Alert (37.5°C)</span></div>
-                    <div class="w-full h-px bg-slate-100"></div>
-                    <div class="w-full h-px bg-slate-100"></div>
-                    <div class="w-full h-px bg-slate-100"></div>
-                </div>
-
-                @php
-                    $chartData = collect(range(0, 6))->map(function($days) {
-                        $date = now()->subDays(6 - $days)->format('Y-m-d');
-                        $logs = Auth::user()->perjalanans()->whereDate('tanggal', $date)->get();
-                        $avg = $logs->count() > 0 ? $logs->avg('suhu_tubuh') : 0;
-                        return ['date' => now()->subDays(6 - $days)->translatedFormat('d M'), 'avg' => $avg];
-                    });
-                    
-                    $maxTemp = 40; 
-                @endphp
-
-                @foreach($chartData as $data)
-                    @php
-                        $height = $data['avg'] > 0 ? ($data['avg'] / $maxTemp) * 100 : 0;
-                        $isHigh = $data['avg'] >= 37.5;
-                        $colorClass = $data['avg'] == 0 ? 'bg-transparent' : ($isHigh ? 'bg-rose-400 shadow-rose-400/50' : 'bg-[#7da8b6] shadow-[#7da8b6]/30');
-                    @endphp
-                    <div class="flex flex-col items-center flex-1 h-full justify-end z-10 group relative">
-                        <!-- Tooltip -->
-                        @if($data['avg'] > 0)
-                            <div class="absolute -top-10 bg-slate-800 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                                {{ number_format($data['avg'], 1) }}°C
-                            </div>
-                        @endif
-                        
-                        <!-- Bar -->
-                        <div class="w-full max-w-[40px] rounded-t-lg {{ $colorClass }} shadow-lg transition-all duration-500 group-hover:brightness-110 relative overflow-hidden" 
-                             style="height: {{ $height }}%">
-                             @if($isHigh)
-                                <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
-                             @endif
-                        </div>
-                        <!-- Label -->
-                        <span class="text-[9px] font-semibold text-slate-500 mt-3 truncate w-full text-center">{{ $data['date'] }}</span>
+            <div class="w-full relative">
+                <!-- Bars Grid -->
+                <div class="grid grid-cols-7 gap-2 items-end h-48 relative pt-4">
+                    <!-- Target lines -->
+                    <div class="absolute inset-x-0 bottom-0 top-0 flex flex-col justify-between z-0">
+                        <div class="w-full h-px bg-slate-200/50 flex items-center"><span class="text-[9px] text-rose-400 font-bold -mt-4 ml-1">Alert (37.5°C)</span></div>
+                        <div class="w-full h-px bg-slate-100"></div>
+                        <div class="w-full h-px bg-slate-100"></div>
+                        <div class="w-full h-px bg-slate-100"></div>
                     </div>
-                @endforeach
+
+                    @php
+                        $chartData = collect(range(0, 6))->map(function($days) {
+                            $date = now()->subDays(6 - $days)->format('Y-m-d');
+                            $logs = Auth::user()->perjalanans()->whereDate('tanggal', $date)->get();
+                            $avg = $logs->count() > 0 ? $logs->avg('suhu_tubuh') : 0;
+                            return ['date' => now()->subDays(6 - $days)->translatedFormat('d M'), 'avg' => $avg];
+                        });
+                        
+                        $maxTemp = 40; 
+                    @endphp
+
+                    @foreach($chartData as $data)
+                        @php
+                            $height = $data['avg'] > 0 ? ($data['avg'] / $maxTemp) * 100 : 0;
+                            $isHigh = $data['avg'] >= 37.5;
+                            $colorClass = $data['avg'] == 0 ? 'bg-transparent' : ($isHigh ? 'bg-rose-400 shadow-rose-400/50' : 'bg-[#7da8b6] shadow-[#7da8b6]/30');
+                        @endphp
+                        <div class="flex flex-col items-center w-full h-full justify-end z-10 group relative">
+                            <!-- Tooltip -->
+                            @if($data['avg'] > 0)
+                                <div class="absolute -top-8 bg-slate-800 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-20">
+                                    {{ number_format($data['avg'], 1) }}°C
+                                </div>
+                            @endif
+                            
+                            <!-- Bar -->
+                            <div class="w-full max-w-[40px] rounded-t-lg {{ $colorClass }} shadow-lg transition-all duration-500 group-hover:brightness-110 relative overflow-hidden" 
+                                 style="height: {{ $height }}%">
+                                 @if($isHigh)
+                                    <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                                 @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                
+                <!-- Date Labels Grid -->
+                <div class="grid grid-cols-7 gap-2 text-center text-xs mt-2 text-slate-500 font-semibold">
+                    @foreach($chartData as $data)
+                        <span class="truncate w-full">{{ $data['date'] }}</span>
+                    @endforeach
+                </div>
             </div>
         </div>
 

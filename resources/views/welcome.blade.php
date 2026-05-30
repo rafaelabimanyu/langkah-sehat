@@ -156,7 +156,7 @@
     <!-- Health Education Hub & FAQ -->
     <section class="w-full bg-white/50 border-t border-slate-200 py-16 transition-all duration-700 ease-out transform"
              x-data="{ showSection: false }"
-             x-intersect.once="setTimeout(() => showSection = true, 100)"
+             x-init="setTimeout(() => showSection = true, 300)"
              :class="showSection ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
         <div class="max-w-7xl mx-auto px-6">
             
@@ -168,7 +168,7 @@
             <!-- Education Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
                 <!-- Card 1 -->
-                <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-lg rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300">
+                <div class="bg-white/80 backdrop-blur-lg border border-white/60 shadow-[0_10px_30px_rgba(148,163,184,0.15)] rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300">
                     <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center mb-4 border border-rose-100 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-temperature-arrow-up text-xl"></i>
                     </div>
@@ -179,7 +179,7 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-lg rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300">
+                <div class="bg-white/80 backdrop-blur-lg border border-white/60 shadow-[0_10px_30px_rgba(148,163,184,0.15)] rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300">
                     <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 border border-emerald-100 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-person-walking-luggage text-xl"></i>
                     </div>
@@ -190,7 +190,7 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-lg rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300">
+                <div class="bg-white/80 backdrop-blur-lg border border-white/60 shadow-[0_10px_30px_rgba(148,163,184,0.15)] rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300">
                     <div class="w-12 h-12 rounded-xl bg-[#5c8d9d]/10 text-[#4a7a8a] flex items-center justify-center mb-4 border border-[#5c8d9d]/20 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-file-medical text-xl"></i>
                     </div>
