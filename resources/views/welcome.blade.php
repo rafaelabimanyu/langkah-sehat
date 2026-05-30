@@ -279,10 +279,80 @@
     </section>
 
     <!-- Footer -->
-    <footer class="w-full px-6 py-6 border-t border-slate-200 text-center text-xs text-slate-500 body-font bg-white/50">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between">
-            <p>&copy; {{ date('Y') }} HealthyWay. Seluruh hak cipta dilindungi.</p>
-            <p class="mt-1 sm:mt-0">Premium Light Medical Design.</p>
+    <footer class="w-full bg-white/60 backdrop-blur-md border-t border-white/80 py-12 px-6 mt-20">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+            <!-- Column 1 (Brand Profile) -->
+            <div class="space-y-4">
+                <a href="#" class="flex items-center space-x-2">
+                    <div class="w-9 h-9 rounded-full bg-[#5c8d9d]/10 flex items-center justify-center border border-[#5c8d9d]/20">
+                        <i class="fa-solid fa-heart-pulse text-[#4a7a8a] text-lg"></i>
+                    </div>
+                    <span class="font-extrabold text-lg tracking-wider text-[#1a365d]">HealthyWay</span>
+                </a>
+                <p class="text-xs text-slate-500 leading-relaxed max-w-sm body-font">
+                    {{ __('Mewujudkan perjalanan yang aman dan sehat melalui pencatatan riwayat perjalanan mandiri yang terstruktur dan terpercaya untuk seluruh masyarakat.') }}
+                </p>
+                <div class="flex items-center space-x-3.5 pt-2">
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-[#5c8d9d]/10 text-slate-400 hover:text-[#4a7a8a] flex items-center justify-center transition-all duration-300 hover:scale-115">
+                        <i class="fa-brands fa-twitter text-sm"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-[#5c8d9d]/10 text-slate-400 hover:text-[#4a7a8a] flex items-center justify-center transition-all duration-300 hover:scale-115">
+                        <i class="fa-brands fa-facebook text-sm"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-[#5c8d9d]/10 text-slate-400 hover:text-[#4a7a8a] flex items-center justify-center transition-all duration-300 hover:scale-115">
+                        <i class="fa-brands fa-instagram text-sm"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-[#5c8d9d]/10 text-slate-400 hover:text-[#4a7a8a] flex items-center justify-center transition-all duration-300 hover:scale-115">
+                        <i class="fa-brands fa-linkedin-in text-sm"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Column 2 (Quick Navigation) -->
+            <div class="space-y-4">
+                <h4 class="font-bold text-[#1a365d] text-sm tracking-wide uppercase">{{ __('Navigasi Cepat') }}</h4>
+                <ul class="space-y-2.5 text-xs text-slate-500 font-semibold body-font">
+                    <li>
+                        <a href="#" class="hover:text-[#4a7a8a] transition-colors">{{ __('Fitur Utama') }}</a>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:text-[#4a7a8a] transition-colors">{{ __('Edukasi Sehat') }}</a>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:text-[#4a7a8a] transition-colors">{{ __('Pertanyaan FAQ') }}</a>
+                    </li>
+                    <li>
+                        <a href="mailto:support@healthyway.id" class="hover:text-[#4a7a8a] transition-colors">{{ __('Layanan Bantuan') }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Column 3 (Emergency / Contact Info) -->
+            <div class="space-y-4">
+                <h4 class="font-bold text-[#1a365d] text-sm tracking-wide uppercase">{{ __('Kontak Darurat') }}</h4>
+                <div class="bg-white/80 border border-slate-200/60 p-4 rounded-2xl shadow-sm space-y-3 max-w-xs">
+                    <div class="flex items-start space-x-2.5">
+                        <i class="fa-solid fa-phone-flip text-rose-500 text-sm mt-0.5 animate-pulse"></i>
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ __('Layanan Kemenkes') }}</p>
+                            <p class="text-xs font-bold text-slate-700">119 / 112</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-2.5 border-t border-slate-100 pt-2.5">
+                        <i class="fa-solid fa-hospital text-[#4a7a8a] text-sm mt-0.5"></i>
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ __('Pelacak Rumah Sakit') }}</p>
+                            <a href="https://sirs.kemkes.go.id" target="_blank" class="text-xs font-bold text-[#4a7a8a] hover:underline">{{ __('Cari Faskes Terdekat') }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="border-t border-slate-200/60 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-semibold body-font max-w-7xl mx-auto w-full">
+            <p>&copy; {{ date('Y') }} HealthyWay. {{ __('Seluruh hak cipta dilindungi.') }}</p>
+            <p class="mt-2 sm:mt-0 text-[#4a7a8a]">{{ __('Premium Light Medical Design by rafaelabimanyu') }}</p>
         </div>
     </footer>
 

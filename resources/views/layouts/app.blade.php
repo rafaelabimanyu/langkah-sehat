@@ -379,11 +379,47 @@
         </div>
 
         <!-- Footer -->
-        <footer
-            class="mt-auto px-8 py-6 border-t border-slate-200 bg-transparent flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 {{ Auth::check() && Auth::user()->role === 'masyarakat' ? 'max-w-7xl mx-auto w-full' : '' }}">
-            <p>&copy; {{ date('Y') }} HealthyWay. Seluruh hak cipta dilindungi.</p>
-            <p class="mt-1 sm:mt-0">Premium Light Medical Design.</p>
-        </footer>
+        @auth
+            @if(Auth::user()->role === 'admin')
+                <!-- Technical Corporate Operations Footer -->
+                <footer class="bg-white border-t border-slate-200 px-6 py-4 text-[11px] font-bold text-slate-400 tracking-wider flex flex-col sm:flex-row items-center justify-between gap-4 mt-auto">
+                    <div>
+                        {{ __('HealthyWay Operational Core System v4.1 — All Rights Reserved.') }}
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center space-x-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>{{ __('System Active / Normal Data Pipeline') }}</span>
+                        </div>
+                        <span class="text-slate-300">|</span>
+                        <span>{{ now()->format('H:i') }} WIB</span>
+                    </div>
+                </footer>
+            @else
+                <!-- Minimalist User Hub Footer -->
+                <footer class="mt-auto py-6 border-t border-slate-200/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-semibold max-w-7xl mx-auto w-full px-4 sm:px-6">
+                    <div>
+                        &copy; {{ date('Y') }} HealthyWay. {{ __('Seluruh hak cipta dilindungi.') }}
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button @click="helpModalOpen = true" class="hover:text-[#4a7a8a] transition-colors focus:outline-none cursor-pointer">
+                            {{ __('Pusat Panduan') }}
+                        </button>
+                        <span class="text-slate-300">•</span>
+                        <a href="{{ route('profile.edit') }}" class="hover:text-[#4a7a8a] transition-colors">
+                            {{ __('Ubah Profil') }}
+                        </a>
+                    </div>
+                </footer>
+            @endif
+        @else
+            <!-- Guest Fallback Footer -->
+            <footer class="mt-auto py-6 border-t border-slate-200/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-semibold max-w-7xl mx-auto w-full px-4 sm:px-6">
+                <div>
+                    &copy; {{ date('Y') }} HealthyWay. {{ __('Seluruh hak cipta dilindungi.') }}
+                </div>
+            </footer>
+        @endauth
     </main>
 
     <!-- Script for mobile menu toggle (Admin only) -->
