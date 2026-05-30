@@ -52,34 +52,36 @@
     <div class="absolute bottom-1/4 right-1/10 w-96 h-96 bg-[#5c8d9d]/10 rounded-full blur-3xl -z-10"></div>
 
     <!-- Glassmorphic Navbar -->
-    <header class="w-full px-4 sm:px-6 py-4 sm:py-5 bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
-            <a href="#" class="flex items-center space-x-2 shrink-0">
-                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#5c8d9d]/10 flex items-center justify-center border border-[#5c8d9d]/20">
-                    <i class="fa-solid fa-heart-pulse text-[#4a7a8a] text-base sm:text-xl"></i>
+    <header class="w-full px-4 sm:px-6 py-4 bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex flex-row items-center justify-between gap-2 sm:gap-4">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#5c8d9d]/10 flex items-center justify-center border border-[#5c8d9d]/20 shrink-0">
+                    <i class="fa-solid fa-heart-pulse text-[#4a7a8a] text-sm sm:text-xl"></i>
                 </div>
-                <div class="flex flex-col">
-                    <span class="font-extrabold text-base sm:text-lg tracking-wider text-[#1a365d]">HealthyWay</span>
-                    <span class="text-[8px] sm:text-[9px] text-slate-500 tracking-widest font-semibold uppercase -mt-0.5">Self-Tracking App</span>
+                <div class="flex flex-col min-w-0">
+                    <span class="font-extrabold text-sm sm:text-lg tracking-wider text-[#1a365d] truncate">HealthyWay</span>
+                    <span class="text-[8px] sm:text-[9px] text-slate-500 tracking-widest font-semibold uppercase -mt-0.5 truncate hidden min-[360px]:block">Self-Tracking App</span>
                 </div>
             </a>
             
-            <div class="flex items-center space-x-2 sm:space-x-4 shrink-0">
+            <!-- Navigation Buttons -->
+            <div class="flex items-center space-x-1.5 sm:space-x-4 shrink-0">
                 @auth
                     @if(Auth::user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}" class="px-4 sm:px-6 py-2 sm:py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-md shrink-0">
+                        <a href="{{ route('admin.dashboard') }}" class="px-3 py-1.5 sm:px-5 sm:py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-md shrink-0">
                             Dashboard Admin
                         </a>
                     @else
-                        <a href="{{ route('masyarakat.dashboard') }}" class="px-4 sm:px-6 py-2 sm:py-2.5 bg-[#4a7a8a] hover:bg-[#3b6370] text-white font-bold rounded-full text-xs sm:text-sm transition-all duration-300 shadow-md hover:shadow-lg shrink-0">
+                        <a href="{{ route('masyarakat.dashboard') }}" class="px-3 py-1.5 sm:px-5 sm:py-2 bg-[#4a7a8a] hover:bg-[#3b6370] text-white font-bold rounded-full text-xs sm:text-sm transition-all duration-300 shadow-md hover:shadow-lg shrink-0">
                             Dashboard Saya
                         </a>
                     @endif
                 @else
-                    <a href="/login" class="px-3 sm:px-6 py-2 sm:py-2.5 bg-white border border-slate-200 hover:bg-slate-50 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-800 transition-all duration-300 shadow-sm shrink-0">
+                    <a href="/login" class="px-3 py-1.5 sm:px-5 sm:py-2 bg-white border border-slate-200 hover:bg-slate-50 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-800 transition-all duration-300 shadow-sm shrink-0">
                         Masuk
                     </a>
-                    <a href="/register" class="px-3 sm:px-6 py-2.5 bg-[#4a7a8a] hover:bg-[#3b6370] text-white font-bold rounded-full text-xs sm:text-sm transition-all duration-300 shadow-md hover:shadow-lg shrink-0">
+                    <a href="/register" class="px-3 py-1.5 sm:px-5 sm:py-2 bg-[#4a7a8a] hover:bg-[#3b6370] text-white font-bold rounded-full text-xs sm:text-sm transition-all duration-300 shadow-md hover:shadow-lg shrink-0">
                         Daftar Baru
                     </a>
                 @endauth
@@ -88,22 +90,22 @@
     </header>
 
     <!-- Main Hero Area -->
-    <main class="max-w-7xl mx-auto px-6 py-12 md:py-20 w-full flex-1 flex flex-col justify-center items-center text-center relative">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20 w-full flex-1 flex flex-col justify-center items-center text-center relative">
         
-        <!-- STAGE 2: THE KINETIC CASCADE HERO CONTAINER REVEAL -->
-        <div class="w-full max-w-5xl mx-auto transition-all duration-1000 ease-out transform flex flex-col items-center"
+        <!-- STAGE 2: THE KINETIC CASCADE HERO CONTAINER REVEAL (Responsive Safe Padding) -->
+        <div class="w-full max-w-5xl mx-auto px-5 sm:px-8 md:px-12 transition-all duration-1000 ease-out transform flex flex-col items-center"
              :class="heroActive ? 'opacity-100 scale-100 translate-y-0 filter-none' : 'opacity-0 scale-95 translate-y-12 blur-xs'">
             
             <!-- STAGE 3: STAGGERED CHILD INNER CONTENT INFLOW -->
-            <div class="max-w-3xl space-y-6 mb-12 flex flex-col items-center">
+            <div class="max-w-3xl space-y-6 mb-12 flex flex-col items-center w-full">
                 <!-- Top Badge -->
                 <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold text-[#3b6370] bg-[#7da8b6]/20 border border-[#7da8b6]/30 tracking-wider uppercase transition-all duration-700 delay-200 transform"
                       :class="heroActive ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'">
                     <i class="fa-solid fa-shield-halved mr-2"></i> {{ __('Aplikasi Pemantauan Mandiri') }}
                 </span>
                 
-                <!-- Main Hero Heading -->
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-[#1a365d] transition-all duration-800 delay-400 transform"
+                <!-- Main Hero Heading (Dynamic Sizing) -->
+                <h1 class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-center leading-tight tracking-tight text-[#1a365d] transition-all duration-800 delay-400 transform"
                     :class="heroActive ? 'opacity-100 translate-y-0 text-shadow-glow' : 'opacity-0 translate-y-6'">
                     Satu Langkah Kecil Bersama 
                     <span class="relative inline-block">
@@ -113,8 +115,8 @@
                     untuk Catatan Kesehatan Perjalanan Anda
                 </h1>
                 
-                <!-- Sub-heading Description Text -->
-                <p class="text-base sm:text-lg text-slate-600 body-font max-w-2xl mx-auto leading-relaxed transition-all duration-800 delay-600 transform"
+                <!-- Sub-heading Description Text (Responsive spacing & font) -->
+                <p class="text-sm sm:text-base md:text-lg text-slate-600 text-center leading-relaxed mt-4 px-2 body-font max-w-2xl mx-auto transition-all duration-800 delay-600 transform"
                    :class="heroActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
                     Log perjalanan yang mudah, pencatatan suhu tubuh yang akurat, serta pengawasan kesehatan berkala terintegrasi untuk masyarakat yang sehat dan terlindungi.
                 </p>
@@ -209,7 +211,7 @@
                     </div>
                     <h3 class="font-bold text-lg text-[#1a365d] mb-2">Tips Menjaga Kondisi Fisik Selama Perjalanan Jauh</h3>
                     <p class="text-sm text-slate-600 leading-relaxed body-font">
-                        Perbanyak minum air putih, hindari dehidrasi, dan lakukan peregangan setiap 2 jam. Jaga pola tidur agar imunitas tidak drop selama bepergian.
+                        Perbanyak minum air putih, hindari dehidrasi, and lakukan peregangan setiap 2 jam. Jaga pola tidur agar imunitas tidak drop selama bepergian.
                     </p>
                 </div>
 
