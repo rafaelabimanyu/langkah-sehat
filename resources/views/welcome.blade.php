@@ -37,11 +37,11 @@
          x-transition:leave-start="opacity-100" 
          x-transition:leave-end="opacity-0" 
          class="fixed inset-0 z-[9999] bg-[#edf3f6] flex flex-col items-center justify-center pointer-events-none">
-        <div class="w-20 h-20 rounded-full bg-white/80 border border-slate-200 shadow-xl flex items-center justify-center mb-4 relative">
-            <div class="absolute inset-0 rounded-full bg-[#5c8d9d]/20 animate-ping"></div>
-            <i class="fa-solid fa-heart-pulse text-[#4a7a8a] text-4xl relative z-10 animate-pulse"></i>
-        </div>
-        <h2 class="text-xl font-bold text-[#1a365d] tracking-widest animate-pulse">HealthyWay</h2>
+         <div class="w-20 h-20 rounded-full bg-white/80 border border-slate-200 shadow-xl flex items-center justify-center mb-4 relative">
+             <div class="absolute inset-0 rounded-full bg-[#5c8d9d]/20 animate-ping"></div>
+             <i class="fa-solid fa-heart-pulse text-[#4a7a8a] text-4xl relative z-10 animate-pulse"></i>
+         </div>
+         <h2 class="text-xl font-bold text-[#1a365d] tracking-widest animate-pulse">HealthyWay</h2>
     </div>
 
     <!-- Soft Light Blobs -->
@@ -49,34 +49,34 @@
     <div class="absolute bottom-1/4 right-1/10 w-96 h-96 bg-[#5c8d9d]/10 rounded-full blur-3xl -z-10"></div>
 
     <!-- Glassmorphic Navbar -->
-    <header class="w-full px-6 py-5 bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <a href="#" class="flex items-center space-x-2.5">
-                <div class="w-10 h-10 rounded-full bg-[#5c8d9d]/10 flex items-center justify-center border border-[#5c8d9d]/20">
-                    <i class="fa-solid fa-heart-pulse text-[#4a7a8a] text-xl"></i>
+    <header class="w-full px-4 sm:px-6 py-4 sm:py-5 bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            <a href="#" class="flex items-center space-x-2 shrink-0">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#5c8d9d]/10 flex items-center justify-center border border-[#5c8d9d]/20">
+                    <i class="fa-solid fa-heart-pulse text-[#4a7a8a] text-base sm:text-xl"></i>
                 </div>
                 <div class="flex flex-col">
-                    <span class="font-extrabold text-lg tracking-wider text-[#1a365d]">HealthyWay</span>
-                    <span class="text-[9px] text-slate-500 tracking-widest font-semibold uppercase -mt-0.5">Self-Tracking App</span>
+                    <span class="font-extrabold text-base sm:text-lg tracking-wider text-[#1a365d]">HealthyWay</span>
+                    <span class="text-[8px] sm:text-[9px] text-slate-500 tracking-widest font-semibold uppercase -mt-0.5">Self-Tracking App</span>
                 </div>
             </a>
             
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-2 sm:space-x-4 shrink-0">
                 @auth
                     @if(Auth::user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}" class="px-6 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-full text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-md">
+                        <a href="{{ route('admin.dashboard') }}" class="px-4 sm:px-6 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-md shrink-0">
                             Dashboard Admin
                         </a>
                     @else
-                        <a href="{{ route('masyarakat.dashboard') }}" class="px-6 py-2.5 bg-[#4a7a8a] hover:bg-[#3b6370] text-white font-bold rounded-full text-sm transition-all duration-300 shadow-md hover:shadow-lg">
+                        <a href="{{ route('masyarakat.dashboard') }}" class="px-4 sm:px-6 py-2 sm:py-2.5 bg-[#4a7a8a] hover:bg-[#3b6370] text-white font-bold rounded-full text-xs sm:text-sm transition-all duration-300 shadow-md hover:shadow-lg shrink-0">
                             Dashboard Saya
                         </a>
                     @endif
                 @else
-                    <a href="/login" class="px-6 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 rounded-full text-sm font-semibold text-slate-600 hover:text-slate-800 transition-all duration-300 shadow-sm">
+                    <a href="/login" class="px-3 sm:px-6 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-800 transition-all duration-300 shadow-sm shrink-0">
                         Masuk
                     </a>
-                    <a href="/register" class="px-6 py-2.5 bg-[#4a7a8a] hover:bg-[#3b6370] text-white font-bold rounded-full text-sm transition-all duration-300 shadow-md hover:shadow-lg">
+                    <a href="/register" class="px-3 sm:px-6 py-2.5 bg-[#4a7a8a] hover:bg-[#3b6370] text-white font-bold rounded-full text-xs sm:text-sm transition-all duration-300 shadow-md hover:shadow-lg shrink-0">
                         Daftar Baru
                     </a>
                 @endauth
@@ -95,29 +95,42 @@
             <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold text-[#3b6370] bg-[#7da8b6]/20 border border-[#7da8b6]/30 tracking-wider uppercase">
                 <i class="fa-solid fa-shield-halved mr-2"></i> Aplikasi Pemantauan Mandiri
             </span>
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-[#1a365d]">
-                Satu Langkah Kecil untuk <br class="hidden sm:inline">
-                <span class="text-[#4a7a8a]">Catatan Kesehatan Perjalanan</span> Anda
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-[#1a365d]">
+                Satu Langkah Kecil Bersama 
+                <span class="inline-block" x-data="{ active: false }" x-init="setTimeout(() => active = true, 200)"
+                      :class="active ? 'opacity-100 translate-x-0 blur-none' : 'opacity-0 -translate-x-8 blur-sm'"
+                      class="transition-all duration-1000 ease-out">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7a8a] via-[#5c8d9d] to-[#1a365d] drop-shadow-[0_2px_10px_rgba(74,122,138,0.15)] font-black">HealthyWay</span>
+                </span>
+                untuk Catatan Kesehatan Perjalanan Anda
             </h1>
             <p class="text-base sm:text-lg text-slate-600 body-font max-w-2xl mx-auto leading-relaxed">
                 Log perjalanan yang mudah, pencatatan suhu tubuh yang akurat, serta pengawasan kesehatan berkala terintegrasi untuk masyarakat yang sehat dan terlindungi.
             </p>
         </div>
 
-        <!-- Real-time Global Counter -->
-        <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-xl rounded-3xl p-6 max-w-sm w-full mb-16 hover:shadow-2xl transition-all duration-300">
-            <p class="text-xs font-semibold text-slate-500 tracking-widest uppercase mb-1">Total Log Perjalanan Global</p>
-            <h3 class="text-4xl font-black text-[#4a7a8a] tracking-wider">
-                {{ number_format($totalLogs) }}
-            </h3>
-            <p class="text-[10px] text-slate-400 mt-1.5 body-font">Catatan perjalanan yang telah berhasil dihimpun oleh platform</p>
+        <!-- Real-time Global Counter (Scroll-driven reveal) -->
+        <div x-data="{ revealed: false }" 
+             x-init="window.addEventListener('scroll', () => { if (window.scrollY > $el.offsetTop - window.innerHeight + 150) revealed = true })"
+             class="transition-all duration-1000 ease-out transform w-full max-w-sm mb-16"
+             :class="revealed ? 'opacity-100 translate-y-0 filter-none' : 'opacity-0 translate-y-12 blur-[2px]'">
+            <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-xl rounded-3xl p-6 hover:shadow-2xl transition-all duration-300">
+                <p class="text-xs font-semibold text-slate-500 tracking-widest uppercase mb-1">Total Log Perjalanan Global</p>
+                <h3 class="text-4xl font-black text-[#4a7a8a] tracking-wider">
+                    {{ number_format($totalLogs) }}
+                </h3>
+                <p class="text-[10px] text-slate-400 mt-1.5 body-font">Catatan perjalanan yang telah berhasil dihimpun oleh platform</p>
+            </div>
         </div>
 
-        <!-- Feature Overview Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full text-left max-w-6xl body-font">
+        <!-- Feature Overview Cards (Scroll-driven reveal & Staggered delay cards) -->
+        <div x-data="{ revealed: false }" 
+             x-init="window.addEventListener('scroll', () => { if (window.scrollY > $el.offsetTop - window.innerHeight + 150) revealed = true })"
+             class="transition-all duration-1000 ease-out transform grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 w-full text-left max-w-6xl body-font"
+             :class="revealed ? 'opacity-100 translate-y-0 filter-none' : 'opacity-0 translate-y-12 blur-[2px]'">
             
             <!-- Feature 1: Quick Logging -->
-            <div class="bg-white/70 backdrop-blur-md border border-slate-200 shadow-lg rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white group">
+            <div class="bg-white/70 backdrop-blur-md border border-slate-200 shadow-lg rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white group delay-100">
                 <div class="w-12 h-12 rounded-full bg-[#5c8d9d]/10 text-[#4a7a8a] flex items-center justify-center mb-5 group-hover:bg-[#5c8d9d]/20 transition-all border border-[#5c8d9d]/20">
                     <i class="fa-solid fa-map-location-dot text-xl"></i>
                 </div>
@@ -128,7 +141,7 @@
             </div>
 
             <!-- Feature 2: Medical Temp Tracking -->
-            <div class="bg-white/70 backdrop-blur-md border border-slate-200 shadow-lg rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white group">
+            <div class="bg-white/70 backdrop-blur-md border border-slate-200 shadow-lg rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white group delay-200">
                 <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5 group-hover:bg-emerald-100 transition-all border border-emerald-200">
                     <i class="fa-solid fa-temperature-three-quarters text-xl"></i>
                 </div>
@@ -139,7 +152,7 @@
             </div>
 
             <!-- Feature 3: Secured Privacy -->
-            <div class="bg-white/70 backdrop-blur-md border border-slate-200 shadow-lg rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white group">
+            <div class="bg-white/70 backdrop-blur-md border border-slate-200 shadow-lg rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white group delay-300">
                 <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-5 group-hover:bg-blue-100 transition-all border border-blue-200">
                     <i class="fa-solid fa-user-lock text-xl"></i>
                 </div>
@@ -153,11 +166,11 @@
 
     </main>
 
-    <!-- Health Education Hub & FAQ -->
-    <section class="w-full bg-white/50 border-t border-slate-200 py-16 transition-all duration-700 ease-out transform"
-             x-data="{ showSection: false }"
-             x-init="setTimeout(() => showSection = true, 300)"
-             :class="showSection ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+    <!-- Health Education Hub & FAQ (Scroll-driven reveal) -->
+    <section x-data="{ revealed: false }" 
+             x-init="window.addEventListener('scroll', () => { if (window.scrollY > $el.offsetTop - window.innerHeight + 150) revealed = true })"
+             class="transition-all duration-1000 ease-out transform w-full bg-white/50 border-t border-slate-200 py-16"
+             :class="revealed ? 'opacity-100 translate-y-0 filter-none' : 'opacity-0 translate-y-12 blur-[2px]'">
         <div class="max-w-7xl mx-auto px-6">
             
             <div class="text-center mb-12">
@@ -165,10 +178,10 @@
                 <h2 class="text-3xl md:text-4xl font-bold text-[#1a365d]">Pahami Tubuh Anda Saat Bepergian</h2>
             </div>
 
-            <!-- Education Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <!-- Education Grid with Staggered Delays -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mb-16">
                 <!-- Card 1 -->
-                <div class="bg-white/80 backdrop-blur-lg border border-white/60 shadow-[0_10px_30px_rgba(148,163,184,0.15)] rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300">
+                <div class="bg-white/80 backdrop-blur-lg border border-white/60 shadow-[0_10px_30px_rgba(148,163,184,0.15)] rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300 delay-100">
                     <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center mb-4 border border-rose-100 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-temperature-arrow-up text-xl"></i>
                     </div>
@@ -179,7 +192,7 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="bg-white/80 backdrop-blur-lg border border-white/60 shadow-[0_10px_30px_rgba(148,163,184,0.15)] rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300">
+                <div class="bg-white/80 backdrop-blur-lg border border-white/60 shadow-[0_10px_30px_rgba(148,163,184,0.15)] rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300 delay-200">
                     <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 border border-emerald-100 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-person-walking-luggage text-xl"></i>
                     </div>
@@ -190,7 +203,7 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="bg-white/80 backdrop-blur-lg border border-white/60 shadow-[0_10px_30px_rgba(148,163,184,0.15)] rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300">
+                <div class="bg-white/80 backdrop-blur-lg border border-white/60 shadow-[0_10px_30px_rgba(148,163,184,0.15)] rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300 delay-300">
                     <div class="w-12 h-12 rounded-xl bg-[#5c8d9d]/10 text-[#4a7a8a] flex items-center justify-center mb-4 border border-[#5c8d9d]/20 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-file-medical text-xl"></i>
                     </div>
