@@ -25,18 +25,21 @@
         .body-font {
             font-family: 'Inter', sans-serif;
         }
+        .blur-xs {
+            filter: blur(2px);
+        }
+        .text-shadow-glow {
+            text-shadow: 0 0 20px rgba(74, 122, 138, 0.25);
+        }
     </style>
 </head>
 <body class="bg-[#edf3f6] min-h-screen text-[#1e293b] font-sans flex flex-col justify-between antialiased overflow-x-hidden"
-      x-data="{ loaded: false }" 
-      x-init="window.addEventListener('load', () => setTimeout(() => loaded = true, 400))">
+      x-data="{ booting: true, heroActive: false }" 
+      x-init="window.addEventListener('load', () => { setTimeout(() => booting = false, 700); setTimeout(() => heroActive = true, 950); })">
 
-    <!-- Global Pre-loader -->
-    <div x-show="!loaded" 
-         x-transition:leave="transition opacity duration-500" 
-         x-transition:leave-start="opacity-100" 
-         x-transition:leave-end="opacity-0" 
-         class="fixed inset-0 z-[9999] bg-[#edf3f6] flex flex-col items-center justify-center pointer-events-none">
+    <!-- STAGE 1: THE LUXURY CINEMATIC PRE-LOADER CURTAIN -->
+    <div class="fixed inset-0 bg-[#edf3f6]/90 backdrop-blur-2xl z-50 flex flex-col items-center justify-center transition-all duration-700 ease-in-out"
+         :class="booting ? 'opacity-100' : 'opacity-0 pointer-events-none'">
          <div class="w-20 h-20 rounded-full bg-white/80 border border-slate-200 shadow-xl flex items-center justify-center mb-4 relative">
              <div class="absolute inset-0 rounded-full bg-[#5c8d9d]/20 animate-ping"></div>
              <i class="fa-solid fa-heart-pulse text-[#4a7a8a] text-4xl relative z-10 animate-pulse"></i>
@@ -64,7 +67,7 @@
             <div class="flex items-center space-x-2 sm:space-x-4 shrink-0">
                 @auth
                     @if(Auth::user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}" class="px-4 sm:px-6 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-md shrink-0">
+                        <a href="{{ route('admin.dashboard') }}" class="px-4 sm:px-6 py-2 sm:py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-md shrink-0">
                             Dashboard Admin
                         </a>
                     @else
@@ -73,7 +76,7 @@
                         </a>
                     @endif
                 @else
-                    <a href="/login" class="px-3 sm:px-6 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-800 transition-all duration-300 shadow-sm shrink-0">
+                    <a href="/login" class="px-3 sm:px-6 py-2 sm:py-2.5 bg-white border border-slate-200 hover:bg-slate-50 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-800 transition-all duration-300 shadow-sm shrink-0">
                         Masuk
                     </a>
                     <a href="/register" class="px-3 sm:px-6 py-2.5 bg-[#4a7a8a] hover:bg-[#3b6370] text-white font-bold rounded-full text-xs sm:text-sm transition-all duration-300 shadow-md hover:shadow-lg shrink-0">
@@ -85,49 +88,57 @@
     </header>
 
     <!-- Main Hero Area -->
-    <main class="max-w-7xl mx-auto px-6 py-12 md:py-20 w-full flex-1 flex flex-col justify-center items-center text-center relative transition-all duration-700 ease-out transform"
-          x-data="{ show: false }" 
-          x-init="setTimeout(() => show = true, 100)" 
-          :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
+    <main class="max-w-7xl mx-auto px-6 py-12 md:py-20 w-full flex-1 flex flex-col justify-center items-center text-center relative">
         
-        <!-- Hero Text -->
-        <div class="max-w-3xl space-y-6 mb-12">
-            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold text-[#3b6370] bg-[#7da8b6]/20 border border-[#7da8b6]/30 tracking-wider uppercase">
-                <i class="fa-solid fa-shield-halved mr-2"></i> Aplikasi Pemantauan Mandiri
-            </span>
-            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-[#1a365d]">
-                Satu Langkah Kecil Bersama 
-                <span class="inline-block" x-data="{ active: false }" x-init="setTimeout(() => active = true, 200)"
-                      :class="active ? 'opacity-100 translate-x-0 blur-none' : 'opacity-0 -translate-x-8 blur-sm'"
-                      class="transition-all duration-1000 ease-out">
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7a8a] via-[#5c8d9d] to-[#1a365d] drop-shadow-[0_2px_10px_rgba(74,122,138,0.15)] font-black">HealthyWay</span>
+        <!-- STAGE 2: THE KINETIC CASCADE HERO CONTAINER REVEAL -->
+        <div class="w-full max-w-5xl mx-auto transition-all duration-1000 ease-out transform flex flex-col items-center"
+             :class="heroActive ? 'opacity-100 scale-100 translate-y-0 filter-none' : 'opacity-0 scale-95 translate-y-12 blur-xs'">
+            
+            <!-- STAGE 3: STAGGERED CHILD INNER CONTENT INFLOW -->
+            <div class="max-w-3xl space-y-6 mb-12 flex flex-col items-center">
+                <!-- Top Badge -->
+                <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold text-[#3b6370] bg-[#7da8b6]/20 border border-[#7da8b6]/30 tracking-wider uppercase transition-all duration-700 delay-200 transform"
+                      :class="heroActive ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'">
+                    <i class="fa-solid fa-shield-halved mr-2"></i> {{ __('Aplikasi Pemantauan Mandiri') }}
                 </span>
-                untuk Catatan Kesehatan Perjalanan Anda
-            </h1>
-            <p class="text-base sm:text-lg text-slate-600 body-font max-w-2xl mx-auto leading-relaxed">
-                Log perjalanan yang mudah, pencatatan suhu tubuh yang akurat, serta pengawasan kesehatan berkala terintegrasi untuk masyarakat yang sehat dan terlindungi.
-            </p>
-        </div>
-
-        <!-- Real-time Global Counter (Scroll-driven reveal) -->
-        <div x-data="{ revealed: false }" 
-             x-init="window.addEventListener('scroll', () => { if (window.scrollY > $el.offsetTop - window.innerHeight + 150) revealed = true })"
-             class="transition-all duration-1000 ease-out transform w-full max-w-sm mb-16"
-             :class="revealed ? 'opacity-100 translate-y-0 filter-none' : 'opacity-0 translate-y-12 blur-[2px]'">
-            <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-xl rounded-3xl p-6 hover:shadow-2xl transition-all duration-300">
-                <p class="text-xs font-semibold text-slate-500 tracking-widest uppercase mb-1">Total Log Perjalanan Global</p>
-                <h3 class="text-4xl font-black text-[#4a7a8a] tracking-wider">
-                    {{ number_format($totalLogs) }}
-                </h3>
-                <p class="text-[10px] text-slate-400 mt-1.5 body-font">Catatan perjalanan yang telah berhasil dihimpun oleh platform</p>
+                
+                <!-- Main Hero Heading -->
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-[#1a365d] transition-all duration-800 delay-400 transform"
+                    :class="heroActive ? 'opacity-100 translate-y-0 text-shadow-glow' : 'opacity-0 translate-y-6'">
+                    Satu Langkah Kecil Bersama 
+                    <span class="relative inline-block">
+                        <span class="absolute inset-0 bg-[#4a7a8a]/20 rounded-lg blur-md transition-opacity duration-1000 delay-500" :class="heroActive ? 'opacity-100' : 'opacity-0'"></span>
+                        <span class="relative text-transparent bg-clip-text bg-gradient-to-r from-[#4a7a8a] via-[#5c8d9d] to-[#1a365d] drop-shadow-[0_2px_10px_rgba(74,122,138,0.15)] font-black">HealthyWay</span>
+                    </span>
+                    untuk Catatan Kesehatan Perjalanan Anda
+                </h1>
+                
+                <!-- Sub-heading Description Text -->
+                <p class="text-base sm:text-lg text-slate-600 body-font max-w-2xl mx-auto leading-relaxed transition-all duration-800 delay-600 transform"
+                   :class="heroActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
+                    Log perjalanan yang mudah, pencatatan suhu tubuh yang akurat, serta pengawasan kesehatan berkala terintegrasi untuk masyarakat yang sehat dan terlindungi.
+                </p>
             </div>
+
+            <!-- Real-time Global Counter -->
+            <div class="max-w-sm w-full mb-16 transition-all duration-500 delay-800 transform"
+                 :class="heroActive ? 'opacity-100 scale-100' : 'opacity-0 scale-90'">
+                <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-xl rounded-3xl p-6 hover:shadow-2xl transition-all duration-300">
+                    <p class="text-xs font-semibold text-slate-500 tracking-widest uppercase mb-1">Total Log Perjalanan Global</p>
+                    <h3 class="text-4xl font-black text-[#4a7a8a] tracking-wider">
+                        {{ number_format($totalLogs) }}
+                    </h3>
+                    <p class="text-[10px] text-slate-400 mt-1.5 body-font">Catatan perjalanan yang telah berhasil dihimpun oleh platform</p>
+                </div>
+            </div>
+
         </div>
 
         <!-- Feature Overview Cards (Scroll-driven reveal & Staggered delay cards) -->
         <div x-data="{ revealed: false }" 
              x-init="window.addEventListener('scroll', () => { if (window.scrollY > $el.offsetTop - window.innerHeight + 150) revealed = true })"
              class="transition-all duration-1000 ease-out transform grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 w-full text-left max-w-6xl body-font"
-             :class="revealed ? 'opacity-100 translate-y-0 filter-none' : 'opacity-0 translate-y-12 blur-[2px]'">
+             :class="revealed ? 'opacity-100 translate-y-0 filter-none' : 'opacity-0 translate-y-12 blur-xs'">
             
             <!-- Feature 1: Quick Logging -->
             <div class="bg-white/70 backdrop-blur-md border border-slate-200 shadow-lg rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white group delay-100">
@@ -170,7 +181,7 @@
     <section x-data="{ revealed: false }" 
              x-init="window.addEventListener('scroll', () => { if (window.scrollY > $el.offsetTop - window.innerHeight + 150) revealed = true })"
              class="transition-all duration-1000 ease-out transform w-full bg-white/50 border-t border-slate-200 py-16"
-             :class="revealed ? 'opacity-100 translate-y-0 filter-none' : 'opacity-0 translate-y-12 blur-[2px]'">
+             :class="revealed ? 'opacity-100 translate-y-0 filter-none' : 'opacity-0 translate-y-12 blur-xs'">
         <div class="max-w-7xl mx-auto px-6">
             
             <div class="text-center mb-12">
