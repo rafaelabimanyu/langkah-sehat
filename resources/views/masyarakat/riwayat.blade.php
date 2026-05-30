@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Riwayat Log & Analisis')
+@section('title', __('Riwayat Log & Analisis'))
 
 @section('content')
 <div class="space-y-6">
@@ -12,8 +12,8 @@
                 <i class="fa-solid fa-calendar-days text-lg"></i>
             </div>
             <div>
-                <h1 class="text-xl font-extrabold tracking-tight text-[#1a365d]">Riwayat Log & Analisis</h1>
-                <p class="text-xs text-slate-500 mt-0.5 body-font">Manajemen data dan analisis perjalanan pribadi</p>
+                <h1 class="text-xl font-extrabold tracking-tight text-[#1a365d]">{{ __('Riwayat Log & Analisis') }}</h1>
+                <p class="text-xs text-slate-500 mt-0.5 body-font">{{ __('Manajemen data dan analisis perjalanan pribadi') }}</p>
             </div>
         </div>
         
@@ -22,7 +22,7 @@
            target="_blank"
            class="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-white border border-slate-200 hover:bg-slate-50 text-[#1a365d] font-semibold text-xs transition-all duration-300 hover:shadow-md">
             <i class="fa-solid fa-print"></i>
-            <span>Cetak Riwayat PDF / Print</span>
+            <span>{{ __('Cetak Riwayat PDF / Print') }}</span>
         </a>
     </div>
 
@@ -33,7 +33,7 @@
                 <i class="fa-solid fa-route text-base"></i>
             </div>
             <div>
-                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Total Log</p>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">{{ __('Total Log') }}</p>
                 <p class="text-2xl font-black text-[#1a365d]">{{ $totalLogs }}</p>
             </div>
         </div>
@@ -42,7 +42,7 @@
                 <i class="fa-solid fa-temperature-half text-base"></i>
             </div>
             <div>
-                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Rata-Rata Suhu</p>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">{{ __('Rata-Rata Suhu') }}</p>
                 <p class="text-2xl font-black text-emerald-600">{{ $avgTemp > 0 ? number_format($avgTemp, 1) . '°C' : '—' }}</p>
             </div>
         </div>
@@ -51,7 +51,7 @@
                 <i class="fa-solid fa-triangle-exclamation text-base"></i>
             </div>
             <div>
-                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Log Suhu Tinggi</p>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">{{ __('Log Suhu Tinggi') }}</p>
                 <p class="text-2xl font-black text-rose-600">{{ $highTempCount }}</p>
             </div>
         </div>
@@ -62,32 +62,32 @@
         <form action="{{ route('perjalanan.riwayat') }}" method="GET" class="grid grid-cols-1 sm:grid-cols-4 gap-3 items-end">
             <!-- Search -->
             <div class="space-y-1.5">
-                <label class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Cari Lokasi</label>
+                <label class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">{{ __('Cari Lokasi') }}</label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
                         <i class="fa-solid fa-magnifying-glass text-xs"></i>
                     </span>
                     <input type="text" name="search" value="{{ $search }}"
                         class="w-full bg-white border border-slate-200 rounded-2xl pl-9 pr-4 py-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#7da8b6] focus:border-transparent transition-all duration-300"
-                        placeholder="Ketik nama lokasi...">
+                        placeholder="{{ __('Ketik nama lokasi...') }}">
                 </div>
             </div>
             
             <!-- Date Filter -->
             <div class="space-y-1.5">
-                <label class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Tanggal</label>
+                <label class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">{{ __('Tanggal') }}</label>
                 <input type="date" name="filter_tanggal" value="{{ $filterTanggal }}"
                     class="w-full bg-white border border-slate-200 rounded-2xl px-4 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#7da8b6] focus:border-transparent transition-all duration-300">
             </div>
             
             <!-- Temp Filter -->
             <div class="space-y-1.5">
-                <label class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Status Suhu</label>
+                <label class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">{{ __('Status Suhu') }}</label>
                 <select name="filter_suhu"
                     class="w-full bg-white border border-slate-200 rounded-2xl px-3 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#7da8b6] focus:border-transparent transition-all duration-300">
-                    <option value="">Semua</option>
-                    <option value="normal" {{ $filterSuhu === 'normal' ? 'selected' : '' }}>Normal (< 37.5°C)</option>
-                    <option value="demam" {{ $filterSuhu === 'demam' ? 'selected' : '' }}>Demam (≥ 37.5°C)</option>
+                    <option value="">{{ __('Semua') }}</option>
+                    <option value="normal" {{ $filterSuhu === 'normal' ? 'selected' : '' }}>{{ __('Suhu Normal (< 37.5°C)') }}</option>
+                    <option value="demam" {{ $filterSuhu === 'demam' ? 'selected' : '' }}>{{ __('Suhu Demam (>= 37.5°C)') }}</option>
                 </select>
             </div>
             
@@ -95,13 +95,13 @@
             <div class="flex items-center space-x-2">
                 <button type="submit" class="flex-1 bg-[#4a7a8a] hover:bg-[#3b6370] text-white py-2.5 px-4 rounded-2xl transition-all duration-300 cursor-pointer text-xs font-bold flex items-center justify-center space-x-2 shadow-sm">
                     <i class="fa-solid fa-filter"></i>
-                    <span>Filter</span>
+                    <span>{{ __('Filter') }}</span>
                 </button>
                 
                 @if($search || $filterTanggal || $filterSuhu)
-                    <a href="{{ route('perjalanan.riwayat') }}" class="bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 py-2.5 px-4 rounded-2xl transition-all text-xs flex items-center justify-center space-x-1.5 font-bold" title="Reset Filter">
+                    <a href="{{ route('perjalanan.riwayat') }}" class="bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 py-2.5 px-4 rounded-2xl transition-all text-xs flex items-center justify-center space-x-1.5 font-bold" title="{{ __('Reset Filter') }}">
                         <i class="fa-solid fa-rotate-right"></i>
-                        <span>Reset</span>
+                        <span>{{ __('Reset') }}</span>
                     </a>
                 @endif
             </div>
@@ -115,11 +115,11 @@
         <div class="px-5 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
             <h3 class="font-bold text-sm text-[#1a365d] flex items-center space-x-2">
                 <i class="fa-solid fa-table-list text-[#4a7a8a]"></i>
-                <span>Tabel Riwayat Perjalanan</span>
+                <span>{{ __('Tabel Riwayat Perjalanan') }}</span>
             </h3>
             <div class="flex items-center space-x-3">
                 <span class="text-[10px] text-slate-500 font-medium">
-                    Tampil: <strong class="text-slate-800">{{ $perjalanans->count() }}</strong> entri
+                    {{ __('Tampil: :count entri', ['count' => $perjalanans->count()]) }}
                 </span>
             </div>
         </div>
@@ -129,12 +129,12 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-white border-b border-slate-200">
-                        <th class="px-4 py-3.5 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">No</th>
-                        <th class="px-4 py-3.5 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Waktu Kunjungan</th>
-                        <th class="px-4 py-3.5 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Lokasi</th>
-                        <th class="px-4 py-3.5 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Suhu</th>
-                        <th class="px-4 py-3.5 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Catatan</th>
-                        <th class="px-4 py-3.5 text-[10px] font-semibold text-slate-500 uppercase tracking-wider text-center">Aksi</th>
+                        <th class="px-4 py-3.5 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">{{ __('No') }}</th>
+                        <th class="px-4 py-3.5 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">{{ __('Tanggal') }}</th>
+                        <th class="px-4 py-3.5 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">{{ __('Lokasi') }}</th>
+                        <th class="px-4 py-3.5 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">{{ __('Suhu Tubuh') }}</th>
+                        <th class="px-4 py-3.5 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">{{ __('Catatan') }}</th>
+                        <th class="px-4 py-3.5 text-[10px] font-semibold text-slate-500 uppercase tracking-wider text-center">{{ __('Aksi') }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 bg-white">
@@ -173,14 +173,14 @@
                             <td class="px-4 py-3.5 text-center">
                                 <div class="inline-flex items-center justify-center space-x-1.5 opacity-70 group-hover:opacity-100 transition-opacity">
                                     <!-- Edit -->
-                                    <a href="{{ route('perjalanan.edit', $log->id) }}" class="p-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 rounded-lg transition-all" title="Ubah Data">
+                                    <a href="{{ route('perjalanan.edit', $log->id) }}" class="p-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 rounded-lg transition-all" title="{{ __('Ubah Catatan Perjalanan') }}">
                                         <i class="fa-regular fa-pen-to-square text-sm"></i>
                                     </a>
                                     <!-- Delete -->
                                     <button type="button" 
                                             @click="deleteUrl = '{{ route('perjalanan.destroy', $log->id) }}'; openDeleteModal = true"
                                             class="p-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-500 rounded-lg transition-all cursor-pointer" 
-                                            title="Hapus Data">
+                                            title="{{ __('Hapus') }}">
                                         <i class="fa-regular fa-trash-can text-sm"></i>
                                     </button>
                                 </div>
@@ -194,12 +194,12 @@
                                         <i class="fa-solid fa-clipboard-question"></i>
                                     </div>
                                     <div>
-                                        <p class="font-semibold text-sm text-slate-600">Tidak ada log perjalanan</p>
-                                        <p class="text-[10px] text-slate-400 mt-1">Belum ada data yang sesuai dengan filter Anda</p>
+                                        <p class="font-semibold text-sm text-slate-600">{{ __('Tidak ada log perjalanan') }}</p>
+                                        <p class="text-[10px] text-slate-400 mt-1">{{ __('Belum ada data yang sesuai dengan filter Anda') }}</p>
                                     </div>
                                     <a href="{{ route('perjalanan.create') }}" class="mt-2 inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50 transition-all shadow-sm">
                                         <i class="fa-solid fa-plus text-[10px]"></i>
-                                        <span>Tambah Catatan Pertama</span>
+                                        <span>{{ __('Tambah Catatan Pertama') }}</span>
                                     </a>
                                 </div>
                             </td>
@@ -228,8 +228,8 @@
                           <i class="fa-solid fa-triangle-exclamation text-lg"></i>
                       </div>
                       <div class="flex-1 mt-1">
-                          <h3 class="text-sm font-bold text-slate-800">Konfirmasi Hapus</h3>
-                          <p class="text-slate-500 mt-1.5 body-font leading-relaxed">Apakah Anda yakin ingin menghapus catatan perjalanan ini secara permanen? Data yang dihapus tidak dapat dikembalikan.</p>
+                          <h3 class="text-sm font-bold text-slate-800">{{ __('Konfirmasi Hapus') }}</h3>
+                          <p class="text-slate-500 mt-1.5 body-font leading-relaxed">{{ __('Apakah Anda yakin ingin menghapus catatan perjalanan ini secara permanen? Data yang dihapus tidak dapat dikembalikan.') }}</p>
                       </div>
                   </div>
                   
@@ -237,14 +237,14 @@
                       <button type="button" 
                               @click="openDeleteModal = false" 
                               class="px-4 py-2 rounded-full bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold transition-all duration-300 cursor-pointer">
-                          Batal
+                          {{ __('Batal') }}
                       </button>
                       <form :action="deleteUrl" method="POST">
                           @csrf
                           @method('DELETE')
                           <button type="submit" 
                                   class="px-4 py-2 rounded-full bg-rose-500 hover:bg-rose-600 text-white font-bold transition-all duration-300 cursor-pointer shadow-md">
-                              <i class="fa-solid fa-trash mr-1"></i>Hapus
+                              <i class="fa-solid fa-trash mr-1"></i>{{ __('Hapus') }}
                           </button>
                       </form>
                   </div>

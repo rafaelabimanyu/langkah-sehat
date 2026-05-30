@@ -89,8 +89,8 @@
                         </div>
                     </a>
 
-                    <!-- Center Nav Links (Desktop) -->
-                    <nav class="hidden md:flex items-center space-x-1">
+                    <!-- Navigation Menu (Shifted to the Right) -->
+                    <nav class="hidden md:flex flex-1 justify-end items-center space-x-2 mr-6">
                         <a href="{{ route('masyarakat.dashboard') }}"
                             class="flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 {{ Route::is('masyarakat.dashboard') ? 'bg-[#5c8d9d]/10 text-[#1a365d] shadow-sm' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800' }}">
                             <i class="fa-solid fa-house text-xs"></i>
@@ -108,8 +108,8 @@
                         </a>
                     </nav>
 
-                    <!-- Right Side: User Profile & Logout -->
-                    <div class="flex items-center space-x-3">
+                    <!-- Right Side: User Actions & Logout -->
+                    <div class="flex items-center space-x-3 shrink-0">
                         <!-- Language Toggle -->
                         <div
                             class="flex items-center space-x-1 bg-slate-100 border border-slate-200/60 rounded-full p-0.5 shadow-inner">
@@ -119,27 +119,12 @@
                                 class="rounded-full px-2.5 py-1 text-[10px] font-black transition-all duration-300 {{ App::getLocale() === 'en' ? 'bg-[#4a7a8a] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800' }}">EN</a>
                         </div>
 
+                        <!-- Standalone Guide Icon Button -->
                         <button @click="helpModalOpen = true"
-                            class="hidden sm:flex items-center space-x-1.5 px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-800 text-xs font-bold transition-all duration-300">
-                            <i class="fa-solid fa-circle-question"></i>
-                            <span>{{ __('Panduan') }}</span>
+                            class="hidden sm:flex w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-800 items-center justify-center border border-slate-200 shadow-sm transition-all"
+                            title="{{ __('Panduan') }}">
+                            <i class="fa-solid fa-circle-question text-lg"></i>
                         </button>
-
-                        <!-- Clickable Profile Initials / Avatar leading to Profile -->
-                        <a href="{{ route('profile.edit') }}"
-                            class="hidden lg:flex items-center space-x-3 pr-3 border-r border-slate-200 ml-2 hover:opacity-80 transition-all">
-                            @if(Auth::user()->avatar)
-                                <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="{{ Auth::user()->name }}"
-                                    class="w-8 h-8 rounded-full object-cover border border-slate-200">
-                            @else
-                                <div
-                                    class="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-[#4a7a8a] font-bold text-sm">
-                                    {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
-                                </div>
-                            @endif
-                            <span
-                                class="text-sm font-semibold text-slate-700 hover:text-[#4a7a8a]">{{ Auth::user()->name }}</span>
-                        </a>
 
                         <form action="{{ route('logout') }}" method="POST" class="m-0 hidden sm:block">
                             @csrf
@@ -158,8 +143,14 @@
                     </div>
                 </div>
 
-                <!-- Mobile Navigation Dropdown -->
-                <div x-show="mobileOpen" x-transition
+                <!-- Mobile Navigation Dropdown with Fluid Transition -->
+                <div x-show="mobileOpen"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 -translate-y-4 backdrop-blur-none"
+                    x-transition:enter-end="opacity-100 translate-y-0 backdrop-blur-lg"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="opacity-100 translate-y-0 backdrop-blur-lg"
+                    x-transition:leave-end="opacity-0 -translate-y-4 backdrop-blur-none"
                     class="md:hidden mt-2 bg-white/95 backdrop-blur-xl border border-slate-200 shadow-xl rounded-3xl px-4 py-4 space-y-1"
                     style="display: none;">
                     <a href="{{ route('masyarakat.dashboard') }}"
@@ -184,19 +175,6 @@
                     </button>
 
                     <div class="border-t border-slate-100 pt-2 mt-2">
-                        <!-- Mobile Language Switcher -->
-                        <div class="flex items-center justify-between px-4 py-2 mb-2">
-                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Language</span>
-                            <div class="flex items-center space-x-1 bg-slate-100 border border-slate-200/60 rounded-full p-0.5">
-                                <a href="{{ route('lang.switch', 'id') }}"
-                                    class="rounded-full px-2.5 py-1 text-[10px] font-black transition-all {{ App::getLocale() === 'id' ? 'bg-[#4a7a8a] text-white' : 'text-slate-500' }}">🇮🇩
-                                    ID</a>
-                                <a href="{{ route('lang.switch', 'en') }}"
-                                    class="rounded-full px-2.5 py-1 text-[10px] font-black transition-all {{ App::getLocale() === 'en' ? 'bg-[#4a7a8a] text-white' : 'text-slate-500' }}">🇬🇧
-                                    EN</a>
-                            </div>
-                        </div>
-
                         <a href="{{ route('profile.edit') }}"
                             class="flex items-center space-x-3 px-4 py-2 hover:bg-slate-50 rounded-2xl transition-colors">
                             @if(Auth::user()->avatar)
