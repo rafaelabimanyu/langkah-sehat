@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard Masyarakat')
+@section('title', __('Dashboard Masyarakat'))
 
 @section('content')
 <div class="space-y-6 max-w-7xl mx-auto">
@@ -17,10 +17,10 @@
                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                 </div>
                 <div>
-                    <h2 class="text-2xl font-extrabold tracking-tight text-[#1a365d]">Halo, {{ Auth::user()->name }}!</h2>
+                    <h2 class="text-2xl font-extrabold tracking-tight text-[#1a365d]">{{ __('Halo, :name!', ['name' => Auth::user()->name]) }}</h2>
                     <p class="text-sm text-slate-500 mt-1 flex items-center">
                         <i class="fa-regular fa-calendar-check mr-2 text-[#4a7a8a]"></i>
-                        Hari ini: <strong class="ml-1 text-slate-700">{{ now()->translatedFormat('l, d F Y') }}</strong>
+                        {{ __('Hari ini:') }} <strong class="ml-1 text-slate-700">{{ now()->translatedFormat('l, d F Y') }}</strong>
                     </p>
                 </div>
             </div>
@@ -35,8 +35,8 @@
                         <i class="fa-solid fa-question text-lg drop-shadow-sm"></i>
                     </div>
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Status Terakhir</p>
-                        <p class="font-semibold text-slate-700 text-sm">Belum Ada Data</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{{ __('Status Terakhir') }}</p>
+                        <p class="font-semibold text-slate-700 text-sm">{{ __('Belum Ada Data') }}</p>
                     </div>
                 @elseif($latestLog->suhu_tubuh >= 37.5)
                     <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center shrink-0 relative">
@@ -44,16 +44,16 @@
                         <i class="fa-solid fa-triangle-exclamation text-lg relative z-10 drop-shadow-md shadow-rose-500/20"></i>
                     </div>
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Status Terakhir</p>
-                        <p class="font-bold text-rose-600 text-sm">Demam ({{ $latestLog->suhu_tubuh }}°C)</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{{ __('Status Terakhir') }}</p>
+                        <p class="font-bold text-rose-600 text-sm">{{ __('Demam') }} ({{ $latestLog->suhu_tubuh }}°C)</p>
                     </div>
                 @else
                     <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
                         <i class="fa-solid fa-check-circle text-lg drop-shadow-md shadow-emerald-500/20"></i>
                     </div>
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Status Terakhir</p>
-                        <p class="font-bold text-emerald-700 text-sm">Normal ({{ $latestLog->suhu_tubuh }}°C)</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{{ __('Status Terakhir') }}</p>
+                        <p class="font-bold text-emerald-700 text-sm">{{ __('Normal') }} ({{ $latestLog->suhu_tubuh }}°C)</p>
                     </div>
                 @endif
             </div>
@@ -69,11 +69,11 @@
                 <div class="w-12 h-12 rounded-full bg-[#5c8d9d]/10 text-[#4a7a8a] flex items-center justify-center border border-[#5c8d9d]/20">
                     <i class="fa-solid fa-route text-xl"></i>
                 </div>
-                <span class="px-2.5 py-1 bg-slate-100 text-slate-600 rounded-full text-[10px] font-bold tracking-wider uppercase">Riwayat</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-600 rounded-full text-[10px] font-bold tracking-wider uppercase">{{ __('Riwayat') }}</span>
             </div>
             <div>
-                <p class="text-xs text-slate-500 font-semibold mb-1">Total Perjalanan</p>
-                <h3 class="text-3xl font-black text-[#1a365d] tracking-tight">{{ Auth::user()->perjalanans()->count() }} <span class="text-sm font-medium text-slate-400">log</span></h3>
+                <p class="text-xs text-slate-500 font-semibold mb-1">{{ __('Total Perjalanan') }}</p>
+                <h3 class="text-3xl font-black text-[#1a365d] tracking-tight">{{ Auth::user()->perjalanans()->count() }} <span class="text-sm font-medium text-slate-400">{{ __('log') }}</span></h3>
             </div>
         </div>
 
@@ -86,19 +86,19 @@
                 <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100 shadow-inner">
                     <i class="fa-solid fa-temperature-half text-xl drop-shadow-md shadow-emerald-500/20"></i>
                 </div>
-                <span class="px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-bold tracking-wider uppercase">Status Imun</span>
+                <span class="px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-bold tracking-wider uppercase">{{ __('Status Imun') }}</span>
             </div>
             <div>
-                <p class="text-xs text-slate-500 font-semibold mb-1">Kesiapan Perjalanan</p>
+                <p class="text-xs text-slate-500 font-semibold mb-1">{{ __('Kesiapan Perjalanan') }}</p>
                 @if($avgTemp == null)
-                    <h3 class="text-xl font-bold text-slate-400 mt-2">Belum ada data</h3>
+                    <h3 class="text-xl font-bold text-slate-400 mt-2">{{ __('Belum ada data') }}</h3>
                 @elseif($avgTemp < 37.5)
                     <div class="bg-emerald-100/50 border border-emerald-200 rounded-xl px-3 py-2 inline-block mt-1 shadow-sm">
-                        <span class="text-sm font-bold text-emerald-700"><i class="fa-solid fa-shield-virus mr-1"></i> Tubuh Prima & Siap Bepergian</span>
+                        <span class="text-sm font-bold text-emerald-700"><i class="fa-solid fa-shield-virus mr-1"></i> {{ __('Tubuh Prima & Siap Bepergian') }}</span>
                     </div>
                 @else
                     <div class="bg-rose-100/50 border border-rose-200 rounded-xl px-3 py-2 inline-block mt-1 shadow-sm animate-pulse">
-                        <span class="text-sm font-bold text-rose-700"><i class="fa-solid fa-virus-covid mr-1"></i> Kondisi Rentan, Istirahatlah</span>
+                        <span class="text-sm font-bold text-rose-700"><i class="fa-solid fa-virus-covid mr-1"></i> {{ __('Kondisi Rentan, Istirahatlah') }}</span>
                     </div>
                 @endif
             </div>
@@ -108,11 +108,11 @@
         <div class="bg-gradient-to-br from-[#4a7a8a] to-[#3b6370] rounded-3xl p-6 flex flex-col justify-center relative overflow-hidden shadow-lg shadow-[#4a7a8a]/20 group hover:-translate-y-1 transition-transform">
             <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-10 translate-x-10 blur-xl"></div>
             
-            <h3 class="text-white font-bold text-lg mb-2 relative z-10">Mulai Perjalanan Baru?</h3>
-            <p class="text-white/70 text-xs mb-5 relative z-10">Catat lokasi dan suhu tubuh Anda saat ini untuk riwayat medis.</p>
+            <h3 class="text-white font-bold text-lg mb-2 relative z-10">{{ __('Mulai Perjalanan Baru?') }}</h3>
+            <p class="text-white/70 text-xs mb-5 relative z-10">{{ __('Catat lokasi dan suhu tubuh Anda saat ini untuk riwayat medis.') }}</p>
             
             <a href="{{ route('perjalanan.create') }}" class="w-full bg-white text-[#1a365d] text-sm font-bold py-3 rounded-full text-center hover:bg-slate-50 transition-colors shadow-md relative z-10">
-                <i class="fa-solid fa-plus mr-2"></i>Catat Sekarang
+                <i class="fa-solid fa-plus mr-2"></i>{{ __('Catat Sekarang') }}
             </a>
         </div>
     </div>
@@ -121,37 +121,52 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         <!-- Weekly Chart -->
-        <div class="lg:col-span-2 bg-white/80 backdrop-blur-lg border border-slate-200 shadow-xl rounded-3xl p-6">
+        <div class="lg:col-span-2 bg-white/80 backdrop-blur-lg border border-slate-200 shadow-xl rounded-3xl p-6 relative">
             <div class="flex items-center justify-between mb-6">
                 <div>
                     <h3 class="font-bold text-lg text-[#1a365d] flex items-center">
-                        <i class="fa-solid fa-chart-simple mr-2 text-[#4a7a8a]"></i>Grafik Suhu 7 Hari Terakhir
+                        <i class="fa-solid fa-chart-simple mr-2 text-[#4a7a8a]"></i>{{ __('Grafik Suhu 7 Hari Terakhir') }}
                     </h3>
-                    <p class="text-xs text-slate-500 mt-1">Pantauan tren suhu tubuh harian Anda.</p>
+                    <p class="text-xs text-slate-500 mt-1">{{ __('Pantauan tren suhu tubuh harian Anda.') }}</p>
                 </div>
             </div>
             
+            @php
+                $chartData = collect(range(0, 6))->map(function($days) {
+                    $date = now()->subDays(6 - $days)->format('Y-m-d');
+                    $logs = Auth::user()->perjalanans()->whereDate('tanggal', $date)->get();
+                    $avg = $logs->count() > 0 ? $logs->avg('suhu_tubuh') : 0;
+                    return [
+                        'date' => now()->subDays(6 - $days)->translatedFormat('d M'),
+                        'avg' => $avg,
+                        'count' => $logs->count()
+                    ];
+                });
+                
+                $totalLogsLast7Days = $chartData->sum('count');
+                $maxTemp = 40; 
+            @endphp
+
             <div class="w-full relative">
+                <!-- Empty State Glassmorphic Overlay -->
+                @if($totalLogsLast7Days == 0)
+                    <div class="absolute inset-0 flex flex-col items-center justify-center bg-white/40 backdrop-blur-[2px] border border-white/30 rounded-2xl p-4 z-20 text-center transition-all duration-300">
+                        <i class="fa-solid fa-chart-line text-slate-300 text-3xl mb-2"></i>
+                        <p class="text-xs text-slate-500 max-w-md leading-relaxed px-4">
+                            {{ __('Belum Ada Aktivitas Catatan Suhu untuk Minggu Ini. Mulai catat perjalanan Anda untuk melihat statistik harian.') }}
+                        </p>
+                    </div>
+                @endif
+
                 <!-- Bars Grid -->
-                <div class="grid grid-cols-7 gap-2 items-end h-48 relative pt-4">
+                <div class="grid grid-cols-7 gap-2 items-end h-48 relative pt-4 {{ $totalLogsLast7Days == 0 ? 'opacity-30' : '' }} transition-opacity duration-300">
                     <!-- Target lines -->
                     <div class="absolute inset-x-0 bottom-0 top-0 flex flex-col justify-between z-0">
-                        <div class="w-full h-px bg-slate-200/50 flex items-center"><span class="text-[9px] text-rose-400 font-bold -mt-4 ml-1">Alert (37.5°C)</span></div>
+                        <div class="w-full h-px bg-slate-200/50 flex items-center"><span class="text-[9px] text-rose-400 font-bold -mt-4 ml-1">{{ __('Alert (37.5°C)') }}</span></div>
                         <div class="w-full h-px bg-slate-100"></div>
                         <div class="w-full h-px bg-slate-100"></div>
                         <div class="w-full h-px bg-slate-100"></div>
                     </div>
-
-                    @php
-                        $chartData = collect(range(0, 6))->map(function($days) {
-                            $date = now()->subDays(6 - $days)->format('Y-m-d');
-                            $logs = Auth::user()->perjalanans()->whereDate('tanggal', $date)->get();
-                            $avg = $logs->count() > 0 ? $logs->avg('suhu_tubuh') : 0;
-                            return ['date' => now()->subDays(6 - $days)->translatedFormat('d M'), 'avg' => $avg];
-                        });
-                        
-                        $maxTemp = 40; 
-                    @endphp
 
                     @foreach($chartData as $data)
                         @php
@@ -179,7 +194,7 @@
                 </div>
                 
                 <!-- Date Labels Grid -->
-                <div class="grid grid-cols-7 gap-2 text-center text-xs mt-2 text-slate-500 font-semibold">
+                <div class="grid grid-cols-7 gap-2 text-center text-xs mt-2 text-slate-500 font-semibold {{ $totalLogsLast7Days == 0 ? 'opacity-30' : '' }} transition-opacity duration-300">
                     @foreach($chartData as $data)
                         <span class="truncate w-full">{{ $data['date'] }}</span>
                     @endforeach
@@ -200,14 +215,14 @@
                     <div class="w-8 h-8 rounded-full bg-[#5c8d9d]/20 text-[#7da8b6] flex items-center justify-center border border-[#5c8d9d]/30">
                         <i class="fa-solid fa-user-doctor text-sm drop-shadow-md"></i>
                     </div>
-                    <h3 class="font-bold text-white text-sm">Catatan Medis Terakhir</h3>
+                    <h3 class="font-bold text-white text-sm">{{ __('Catatan Medis Terakhir') }}</h3>
                 </div>
                 <div class="relative z-10 bg-slate-800/80 rounded-2xl p-4 border border-slate-700/50">
                     @if($latestConsultation)
                         <p class="text-xs text-[#7da8b6] font-medium mb-1"><i class="fa-regular fa-calendar mr-1"></i>{{ \Carbon\Carbon::parse($latestConsultation->tanggal)->translatedFormat('d M Y') }}</p>
                         <p class="text-sm text-slate-200 italic leading-relaxed">"{{ $latestConsultation->catatan }}"</p>
                     @else
-                        <p class="text-sm text-slate-400 italic">Belum ada catatan konsultasi medis yang tersimpan.</p>
+                        <p class="text-sm text-slate-400 italic">{{ __('Belum ada catatan konsultasi medis yang tersimpan.') }}</p>
                     @endif
                 </div>
             </div>
@@ -217,10 +232,10 @@
                 <div class="flex items-center justify-between mb-6">
                     <div>
                         <h3 class="font-bold text-[#1a365d] flex items-center">
-                            <i class="fa-solid fa-clock-rotate-left mr-2 text-[#4a7a8a] drop-shadow-sm"></i>Log Terakhir
+                            <i class="fa-solid fa-clock-rotate-left mr-2 text-[#4a7a8a] drop-shadow-sm"></i>{{ __('Log Terakhir') }}
                         </h3>
                     </div>
-                    <a href="{{ route('perjalanan.riwayat') }}" class="text-[10px] font-bold text-[#4a7a8a] hover:text-[#1a365d] transition-colors">Lihat Semua</a>
+                    <a href="{{ route('perjalanan.riwayat') }}" class="text-[10px] font-bold text-[#4a7a8a] hover:text-[#1a365d] transition-colors">{{ __('Lihat Semua') }}</a>
                 </div>
 
                 <div class="flex-1 overflow-y-auto pr-2 space-y-4">
@@ -251,7 +266,7 @@
                     @empty
                         <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-3 py-10 border-2 border-dashed border-slate-200 rounded-2xl">
                             <i class="fa-solid fa-clipboard-list text-2xl drop-shadow-sm"></i>
-                            <p class="text-xs text-center font-medium">Belum ada catatan.<br>Mulai tracking perdana Anda.</p>
+                            <p class="text-xs text-center font-medium">{{ __('Belum ada catatan.') }}<br>{{ __('Mulai tracking perdana Anda.') }}</p>
                         </div>
                     @endforelse
                 </div>
