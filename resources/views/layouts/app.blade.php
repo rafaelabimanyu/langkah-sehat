@@ -42,7 +42,7 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-tr from-slate-950 via-indigo-950 to-blue-900 min-h-screen text-white base-font flex antialiased overflow-x-hidden {{ Auth::check() && Auth::user()->role === 'admin' ? 'flex-col md:flex-row' : 'flex-col' }}">
+<body class="bg-gradient-to-tr from-slate-950 via-indigo-950 to-blue-900 min-h-screen text-white base-font flex antialiased overflow-x-hidden {{ Auth::check() && Auth::user()->role === 'admin' ? 'flex-col md:flex-row' : 'flex-col' }}" x-data="{ helpModalOpen: false }">
 
     @auth
         @if(Auth::user()->role === 'masyarakat')
@@ -79,7 +79,11 @@
 
                     <!-- Right Side: User Profile & Logout -->
                     <div class="flex items-center space-x-3">
-                        <div class="hidden lg:flex items-center space-x-3 pr-3 border-r border-white/10">
+                        <button @click="helpModalOpen = true" class="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/25 border border-indigo-500/20 text-indigo-300 hover:text-white text-xs font-bold transition-all duration-300">
+                            <i class="fa-solid fa-circle-question"></i>
+                            <span>Panduan</span>
+                        </button>
+                        <div class="hidden lg:flex items-center space-x-3 pr-3 border-r border-white/10 ml-2">
                             <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-300 font-bold text-sm">
                                 {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
                             </div>
@@ -116,6 +120,10 @@
                         <i class="fa-solid fa-calendar-days"></i>
                         <span>Riwayat Log & Analisis</span>
                     </a>
+                    <button @click="helpModalOpen = true; mobileOpen = false" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold text-indigo-300 hover:bg-white/5 text-left">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <span>Panduan Penggunaan</span>
+                    </button>
                     <div class="border-t border-white/10 pt-2 mt-2">
                         <div class="flex items-center space-x-3 px-4 py-2">
                             <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-300 font-bold text-sm">
@@ -186,6 +194,14 @@
                         <span>Kelola Pengguna</span>
                     </a>
                 </nav>
+
+                <!-- Help Guide -->
+                <div class="mt-4 mb-2">
+                    <button @click="helpModalOpen = true" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 text-indigo-300 hover:bg-indigo-500/10 hover:text-white border border-transparent hover:border-indigo-500/20">
+                        <i class="fa-solid fa-circle-question text-lg"></i>
+                        <span>Panduan Sistem</span>
+                    </button>
+                </div>
 
                 <!-- Logout Action -->
                 <div class="mt-auto pt-6 border-t border-white/10">
@@ -276,5 +292,93 @@
             }
         });
     </script>
+
+    <!-- Global Help Documentation Modal -->
+    <div x-show="helpModalOpen" 
+         style="display: none;"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-950/80 backdrop-blur-sm">
+         
+        <div class="w-full max-w-2xl max-h-[85vh] flex flex-col bg-slate-900 border border-white/20 rounded-2xl shadow-2xl overflow-hidden transform transition-all"
+             @click.away="helpModalOpen = false">
+             
+            <!-- Header -->
+            <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-white/5 shrink-0">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center border border-indigo-500/30">
+                        <i class="fa-solid fa-book-open-reader text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white tracking-tight">Pusat Bantuan & Panduan</h3>
+                        <p class="text-[10px] text-white/50">Dokumentasi operasional Langkah Sehat</p>
+                    </div>
+                </div>
+                <button @click="helpModalOpen = false" class="text-white/40 hover:text-white hover:bg-white/10 p-2 rounded-lg transition-colors">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Body -->
+            <div class="p-6 overflow-y-auto body-font text-sm text-white/80 space-y-6">
+                
+                @if(Auth::check() && Auth::user()->role === 'admin')
+                    <!-- ADMIN GUIDE -->
+                    <div>
+                        <h4 class="text-cyan-300 font-bold text-base mb-2 flex items-center"><i class="fa-solid fa-shield-halved mr-2"></i>Panduan Administrator</h4>
+                        <p class="mb-3 leading-relaxed">Sebagai admin, tugas Anda adalah memantau pergerakan dan status kesehatan masyarakat secara global.</p>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+                                <h5 class="text-white font-bold mb-1"><i class="fa-solid fa-chart-line text-cyan-400 mr-2"></i>Monitoring Global</h5>
+                                <p class="text-[12px] text-white/60">Lihat ringkasan total pengguna, total log, dan jumlah alert (suhu &ge; 37.5&deg;C). Tabel di bawahnya menampilkan seluruh log secara real-time. Gunakan filter tanggal, suhu, dan pencarian untuk mengaudit data.</p>
+                            </div>
+                            <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+                                <h5 class="text-white font-bold mb-1"><i class="fa-solid fa-users-gear text-emerald-400 mr-2"></i>Kelola Pengguna</h5>
+                                <p class="text-[12px] text-white/60">Fitur untuk melihat semua akun terdaftar. Anda memiliki akses untuk menghapus pengguna jika terindikasi spam atau melanggar aturan sistem.</p>
+                            </div>
+                            <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+                                <h5 class="text-white font-bold mb-1"><i class="fa-solid fa-trash-can text-rose-400 mr-2"></i>Hapus Log Anomalus</h5>
+                                <p class="text-[12px] text-white/60">Melalui tabel monitoring, Anda dapat menghapus entri perjalanan masyarakat yang dianggap anomali/palsu demi menjaga kebersihan data global.</p>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <!-- MASYARAKAT GUIDE -->
+                    <div>
+                        <h4 class="text-cyan-300 font-bold text-base mb-2 flex items-center"><i class="fa-solid fa-user-check mr-2"></i>Panduan Pengguna (Masyarakat)</h4>
+                        <p class="mb-3 leading-relaxed">Gunakan aplikasi ini untuk mencatat histori perjalanan dan kondisi suhu tubuh Anda sehari-hari.</p>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+                                <h5 class="text-white font-bold mb-1"><i class="fa-solid fa-plus text-cyan-400 mr-2"></i>Catat Perjalanan</h5>
+                                <p class="text-[12px] text-white/60">Klik menu <strong>Catat Perjalanan</strong>. Waktu dan tanggal otomatis terisi, namun Anda bisa mengubahnya. Masukkan lokasi, suhu tubuh (normal: &lt; 37.5&deg;C), dan catatan keluhan bila ada.</p>
+                            </div>
+                            <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+                                <h5 class="text-white font-bold mb-1"><i class="fa-solid fa-calendar-days text-indigo-400 mr-2"></i>Riwayat & Ekspor Log</h5>
+                                <p class="text-[12px] text-white/60">Menu <strong>Riwayat Log</strong> menampilkan semua catatan Anda. Jika Anda ingin berkonsultasi ke dokter, gunakan tombol <strong>Cetak Riwayat PDF/Print</strong> untuk mencetak laporan resmi.</p>
+                            </div>
+                            <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+                                <h5 class="text-white font-bold mb-1"><i class="fa-solid fa-heart-pulse text-rose-400 mr-2"></i>Indikator Suhu (Demam)</h5>
+                                <p class="text-[12px] text-white/60">Jika Anda memasukkan suhu tubuh 37.5&deg;C atau lebih, sistem akan menandainya dengan status <span class="text-rose-400 font-semibold">Demam (Alert merah)</span>. Segera istirahat dan kunjungi fasilitas medis jika memburuk.</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                
+            </div>
+            
+            <!-- Footer -->
+            <div class="px-6 py-4 border-t border-white/10 bg-white/5 flex justify-end shrink-0">
+                <button @click="helpModalOpen = false" class="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold transition-all text-sm cursor-pointer">
+                    Mengerti, Tutup
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
