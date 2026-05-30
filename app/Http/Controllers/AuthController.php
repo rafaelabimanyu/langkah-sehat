@@ -32,14 +32,17 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
-            $user = Auth::user();
-            if ($user->role === 'admin') {
-                return redirect()->intended('/admin/dashboard')
-                    ->with('success', 'Selamat datang kembali, Admin ' . $user->name . '!');
+            // Flush any stored intended target URLs to prevent cross-role injection bugs
+            session()->forget('url.intended');
+
+            // Explicitly route users directly to their native environments
+            if (Auth::user()->role === 'admin') {
+                return redirect()->route('admin.dashboard')
+                    ->with('success', 'Selamat datang kembali, Admin ' . Auth::user()->name . '!');
             }
 
-            return redirect()->intended('/dashboard')
-                ->with('success', 'Selamat datang kembali, ' . $user->name . '!');
+            return redirect()->route('masyarakat.dashboard')
+                ->with('success', 'Selamat datang kembali, ' . Auth::user()->name . '!');
         }
 
         return back()->withErrors([
@@ -72,11 +75,11 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         if ($user->role === 'admin') {
-            return redirect('/admin/dashboard')
+            return redirect()->route('admin.dashboard')
                 ->with('success', 'Registrasi berhasil. Selamat datang, Admin ' . $user->name . '!');
         }
 
-        return redirect('/dashboard')
+        return redirect()->route('masyarakat.dashboard')
                 ->with('success', 'Registrasi berhasil. Selamat datang, ' . $user->name . '!');
     }
 
@@ -85,11 +88,16 @@ class AuthController extends Controller
      */
     public function logout(Request $request): RedirectResponse
     {
+        // 1. Flush auth guards tokens
         Auth::logout();
 
+        // 2. Invalidate the user's browser session completely
         $request->session()->invalidate();
+
+        // 3. Regenerate the CSRF token security string to prevent session hijacking
         $request->session()->regenerateToken();
 
-        return redirect('/login')->with('success', 'Anda telah berhasil keluar.');
+        // 4. Force direct redirection to the absolute landing welcome page
+        return redirect('/');
     }
 }
