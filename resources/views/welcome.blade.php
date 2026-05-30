@@ -27,7 +27,22 @@
         }
     </style>
 </head>
-<body class="bg-[#edf3f6] min-h-screen text-[#1e293b] font-sans flex flex-col justify-between antialiased overflow-x-hidden">
+<body class="bg-[#edf3f6] min-h-screen text-[#1e293b] font-sans flex flex-col justify-between antialiased overflow-x-hidden"
+      x-data="{ loaded: false }" 
+      x-init="window.addEventListener('load', () => setTimeout(() => loaded = true, 400))">
+
+    <!-- Global Pre-loader -->
+    <div x-show="!loaded" 
+         x-transition:leave="transition opacity duration-500" 
+         x-transition:leave-start="opacity-100" 
+         x-transition:leave-end="opacity-0" 
+         class="fixed inset-0 z-[9999] bg-[#edf3f6] flex flex-col items-center justify-center pointer-events-none">
+        <div class="w-20 h-20 rounded-full bg-white/80 border border-slate-200 shadow-xl flex items-center justify-center mb-4 relative">
+            <div class="absolute inset-0 rounded-full bg-[#5c8d9d]/20 animate-ping"></div>
+            <i class="fa-solid fa-heart-pulse text-[#4a7a8a] text-4xl relative z-10 animate-pulse"></i>
+        </div>
+        <h2 class="text-xl font-bold text-[#1a365d] tracking-widest animate-pulse">HealthyWay</h2>
+    </div>
 
     <!-- Soft Light Blobs -->
     <div class="absolute top-1/4 left-1/10 w-96 h-96 bg-[#7da8b6]/20 rounded-full blur-3xl -z-10"></div>
@@ -70,7 +85,10 @@
     </header>
 
     <!-- Main Hero Area -->
-    <main class="max-w-7xl mx-auto px-6 py-12 md:py-20 w-full flex-1 flex flex-col justify-center items-center text-center relative">
+    <main class="max-w-7xl mx-auto px-6 py-12 md:py-20 w-full flex-1 flex flex-col justify-center items-center text-center relative transition-all duration-700 ease-out transform"
+          x-data="{ show: false }" 
+          x-init="setTimeout(() => show = true, 100)" 
+          :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
         
         <!-- Hero Text -->
         <div class="max-w-3xl space-y-6 mb-12">
@@ -134,6 +152,105 @@
         </div>
 
     </main>
+
+    <!-- Health Education Hub & FAQ -->
+    <section class="w-full bg-white/50 border-t border-slate-200 py-16 transition-all duration-700 ease-out transform"
+             x-data="{ showSection: false }"
+             x-intersect.once="setTimeout(() => showSection = true, 100)"
+             :class="showSection ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="text-center mb-12">
+                <span class="text-xs font-semibold text-[#4a7a8a] tracking-widest uppercase mb-2 block">Pusat Panduan & Edukasi Sehat Perjalanan</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-[#1a365d]">Pahami Tubuh Anda Saat Bepergian</h2>
+            </div>
+
+            <!-- Education Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                <!-- Card 1 -->
+                <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-lg rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center mb-4 border border-rose-100 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-temperature-arrow-up text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-[#1a365d] mb-2">Panduan Suhu Tubuh Ideal & Deteksi Dini Demam</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed body-font">
+                        Suhu tubuh normal orang dewasa berada di kisaran 36.1°C hingga 37.2°C. Jika suhu Anda menyentuh 37.5°C atau lebih, tubuh memberikan sinyal awal peringatan.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-lg rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 border border-emerald-100 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-person-walking-luggage text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-[#1a365d] mb-2">Tips Menjaga Kondisi Fisik Selama Perjalanan Jauh</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed body-font">
+                        Perbanyak minum air putih, hindari dehidrasi, dan lakukan peregangan setiap 2 jam. Jaga pola tidur agar imunitas tidak drop selama bepergian.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-lg rounded-3xl p-6 group hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-[#5c8d9d]/10 text-[#4a7a8a] flex items-center justify-center mb-4 border border-[#5c8d9d]/20 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-file-medical text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-[#1a365d] mb-2">Mengapa Mencatat Riwayat Bisa Menyelamatkan Anda</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed body-font">
+                        Contact tracing dan catatan kronologis mempermudah tenaga medis mendiagnosis jika Anda jatuh sakit pasca-perjalanan. Sebuah kebiasaan kecil yang krusial.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Interactive FAQ Section -->
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold text-[#1a365d]">Pertanyaan yang Sering Diajukan</h3>
+                </div>
+                
+                <div class="space-y-4" x-data="{ active: null }">
+                    <!-- FAQ 1 -->
+                    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm transition-all duration-300">
+                        <button @click="active = (active === 1 ? null : 1)" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                            <span class="font-semibold text-[#1a365d]">Apakah data perjalanan saya aman?</span>
+                            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300" :class="active === 1 ? 'rotate-180' : ''"></i>
+                        </button>
+                        <div x-show="active === 1" x-collapse>
+                            <div class="px-6 pb-4 text-sm text-slate-600 body-font">
+                                Sangat aman. HealthyWay menggunakan enkripsi standar industri. Data hanya digunakan untuk pemantauan kesehatan pribadi dan rekapitulasi medis Anda sendiri.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 2 -->
+                    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm transition-all duration-300">
+                        <button @click="active = (active === 2 ? null : 2)" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                            <span class="font-semibold text-[#1a365d]">Bagaimana jika saya lupa mencatat perjalanan?</span>
+                            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300" :class="active === 2 ? 'rotate-180' : ''"></i>
+                        </button>
+                        <div x-show="active === 2" x-collapse>
+                            <div class="px-6 pb-4 text-sm text-slate-600 body-font">
+                                Tidak masalah! Anda dapat menambahkan log perjalanan secara retrospektif (mundur) dengan memilih tanggal dan jam yang sesuai saat Anda tiba di lokasi.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 3 -->
+                    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm transition-all duration-300">
+                        <button @click="active = (active === 3 ? null : 3)" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                            <span class="font-semibold text-[#1a365d]">Bisakah saya mencetak data untuk dibawa ke dokter?</span>
+                            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300" :class="active === 3 ? 'rotate-180' : ''"></i>
+                        </button>
+                        <div x-show="active === 3" x-collapse>
+                            <div class="px-6 pb-4 text-sm text-slate-600 body-font">
+                                Tentu. HealthyWay menyediakan fitur "Cetak Riwayat PDF" di dashboard Anda. Format cetakannya sudah didesain khusus agar mudah dibaca oleh tenaga medis.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="w-full px-6 py-6 border-t border-slate-200 text-center text-xs text-slate-500 body-font bg-white/50">

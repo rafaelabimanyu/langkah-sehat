@@ -5,6 +5,20 @@
 
 @section('content')
 <div class="space-y-6">
+
+    <!-- Critical Alert Banner -->
+    @if(isset($highTempCount) && $highTempCount > 0)
+    <div class="bg-rose-100/90 backdrop-blur-md border border-rose-200 rounded-3xl p-4 shadow-lg shadow-rose-500/10 flex items-start space-x-4 animate-pulse relative overflow-hidden transition-all duration-300">
+        <div class="absolute -right-4 -top-4 w-20 h-20 bg-rose-500/10 rounded-full blur-xl"></div>
+        <div class="w-10 h-10 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0 text-rose-500 relative z-10">
+            <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+        </div>
+        <div class="flex-1 relative z-10">
+            <h3 class="font-bold text-rose-800 text-sm">Peringatan: Terdeteksi pengguna dengan kondisi demam tinggi!</h3>
+            <p class="text-xs text-rose-600 mt-1 font-medium">Terdapat <strong>{{ $highTempCount }}</strong> log perjalanan terbaru dengan suhu tubuh &ge; 37.5°C. Harap tingkatkan pengawasan pada data tersebut.</p>
+        </div>
+    </div>
+    @endif
     
     <!-- Analytics Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">

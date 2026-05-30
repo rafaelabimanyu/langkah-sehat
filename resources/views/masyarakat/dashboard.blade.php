@@ -32,7 +32,7 @@
             <div class="bg-white border border-slate-200 rounded-3xl p-4 flex items-center space-x-4 shadow-sm min-w-[200px]">
                 @if(!$latestLog)
                     <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center shrink-0">
-                        <i class="fa-solid fa-question text-lg"></i>
+                        <i class="fa-solid fa-question text-lg drop-shadow-sm"></i>
                     </div>
                     <div>
                         <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Status Terakhir</p>
@@ -41,7 +41,7 @@
                 @elseif($latestLog->suhu_tubuh >= 37.5)
                     <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center shrink-0 relative">
                         <span class="absolute inset-0 rounded-full bg-rose-400 opacity-30 animate-ping"></span>
-                        <i class="fa-solid fa-triangle-exclamation text-lg relative z-10"></i>
+                        <i class="fa-solid fa-triangle-exclamation text-lg relative z-10 drop-shadow-md shadow-rose-500/20"></i>
                     </div>
                     <div>
                         <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Status Terakhir</p>
@@ -49,7 +49,7 @@
                     </div>
                 @else
                     <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                        <i class="fa-solid fa-check-circle text-lg"></i>
+                        <i class="fa-solid fa-check-circle text-lg drop-shadow-md shadow-emerald-500/20"></i>
                     </div>
                     <div>
                         <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Status Terakhir</p>
@@ -77,20 +77,30 @@
             </div>
         </div>
 
-        <!-- Average Temp Card -->
+        <!-- Average Temp / Status Imun Card -->
         @php
             $avgTemp = Auth::user()->perjalanans()->avg('suhu_tubuh');
         @endphp
-        <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-lg rounded-3xl p-6 flex flex-col justify-between hover:-translate-y-1 transition-transform">
+        <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-lg rounded-3xl p-6 flex flex-col justify-between hover:-translate-y-1 transition-transform relative overflow-hidden">
             <div class="flex justify-between items-start mb-4">
-                <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
-                    <i class="fa-solid fa-temperature-half text-xl"></i>
+                <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100 shadow-inner">
+                    <i class="fa-solid fa-temperature-half text-xl drop-shadow-md shadow-emerald-500/20"></i>
                 </div>
-                <span class="px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-bold tracking-wider uppercase">Metrik</span>
+                <span class="px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-bold tracking-wider uppercase">Status Imun</span>
             </div>
             <div>
-                <p class="text-xs text-slate-500 font-semibold mb-1">Rata-rata Suhu</p>
-                <h3 class="text-3xl font-black text-[#1a365d] tracking-tight">{{ $avgTemp ? number_format($avgTemp, 1) : '--' }}<span class="text-sm font-medium text-slate-400">°C</span></h3>
+                <p class="text-xs text-slate-500 font-semibold mb-1">Kesiapan Perjalanan</p>
+                @if($avgTemp == null)
+                    <h3 class="text-xl font-bold text-slate-400 mt-2">Belum ada data</h3>
+                @elseif($avgTemp < 37.5)
+                    <div class="bg-emerald-100/50 border border-emerald-200 rounded-xl px-3 py-2 inline-block mt-1 shadow-sm">
+                        <span class="text-sm font-bold text-emerald-700"><i class="fa-solid fa-shield-virus mr-1"></i> Tubuh Prima & Siap Bepergian</span>
+                    </div>
+                @else
+                    <div class="bg-rose-100/50 border border-rose-200 rounded-xl px-3 py-2 inline-block mt-1 shadow-sm animate-pulse">
+                        <span class="text-sm font-bold text-rose-700"><i class="fa-solid fa-virus-covid mr-1"></i> Kondisi Rentan, Istirahatlah</span>
+                    </div>
+                @endif
             </div>
         </div>
 
@@ -169,48 +179,74 @@
             </div>
         </div>
 
-        <!-- Recent Activity Feed -->
-        <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-xl rounded-3xl p-6 flex flex-col">
-            <div class="flex items-center justify-between mb-6">
-                <div>
-                    <h3 class="font-bold text-[#1a365d] flex items-center">
-                        <i class="fa-solid fa-clock-rotate-left mr-2 text-[#4a7a8a]"></i>Log Terakhir
-                    </h3>
+        <!-- Recent Activity Feed & Doctor Notes -->
+        <div class="flex flex-col space-y-6">
+            
+            <!-- Doctor Consultation Notes Widget -->
+            @php
+                $latestConsultation = Auth::user()->perjalanans()->whereNotNull('catatan')->where('catatan', '!=', '')->latest('tanggal')->first();
+            @endphp
+            <div class="bg-slate-900 border border-slate-700 shadow-xl rounded-3xl p-5 relative overflow-hidden group">
+                <div class="absolute -right-6 -top-6 w-24 h-24 bg-[#5c8d9d]/30 rounded-full blur-2xl"></div>
+                <div class="flex items-center space-x-3 mb-3 relative z-10">
+                    <div class="w-8 h-8 rounded-full bg-[#5c8d9d]/20 text-[#7da8b6] flex items-center justify-center border border-[#5c8d9d]/30">
+                        <i class="fa-solid fa-user-doctor text-sm drop-shadow-md"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-sm">Catatan Medis Terakhir</h3>
                 </div>
-                <a href="{{ route('perjalanan.riwayat') }}" class="text-[10px] font-bold text-[#4a7a8a] hover:text-[#1a365d] transition-colors">Lihat Semua</a>
+                <div class="relative z-10 bg-slate-800/80 rounded-2xl p-4 border border-slate-700/50">
+                    @if($latestConsultation)
+                        <p class="text-xs text-[#7da8b6] font-medium mb-1"><i class="fa-regular fa-calendar mr-1"></i>{{ \Carbon\Carbon::parse($latestConsultation->tanggal)->translatedFormat('d M Y') }}</p>
+                        <p class="text-sm text-slate-200 italic leading-relaxed">"{{ $latestConsultation->catatan }}"</p>
+                    @else
+                        <p class="text-sm text-slate-400 italic">Belum ada catatan konsultasi medis yang tersimpan.</p>
+                    @endif
+                </div>
             </div>
 
-            <div class="flex-1 overflow-y-auto pr-2 space-y-4">
-                @php
-                    $recentLogs = Auth::user()->perjalanans()->orderBy('tanggal', 'desc')->orderBy('jam', 'desc')->limit(4)->get();
-                @endphp
+            <!-- Recent Log Feed -->
+            <div class="bg-white/80 backdrop-blur-lg border border-slate-200 shadow-xl rounded-3xl p-6 flex flex-col flex-1">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="font-bold text-[#1a365d] flex items-center">
+                            <i class="fa-solid fa-clock-rotate-left mr-2 text-[#4a7a8a] drop-shadow-sm"></i>Log Terakhir
+                        </h3>
+                    </div>
+                    <a href="{{ route('perjalanan.riwayat') }}" class="text-[10px] font-bold text-[#4a7a8a] hover:text-[#1a365d] transition-colors">Lihat Semua</a>
+                </div>
 
-                @forelse($recentLogs as $log)
-                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 flex space-x-3 group hover:border-[#7da8b6]/30 hover:bg-white transition-all">
-                        <div class="w-9 h-9 rounded-full bg-[#edf3f6] flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-location-dot text-[#4a7a8a] text-sm"></i>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center justify-between">
-                                <h4 class="font-semibold text-sm text-[#1e3a5f] truncate" title="{{ $log->lokasi }}">{{ $log->lokasi }}</h4>
-                                <span class="text-[10px] text-slate-400 font-medium whitespace-nowrap ml-2">{{ \Carbon\Carbon::parse($log->tanggal)->translatedFormat('d M') }}</span>
+                <div class="flex-1 overflow-y-auto pr-2 space-y-4">
+                    @php
+                        $recentLogs = Auth::user()->perjalanans()->orderBy('tanggal', 'desc')->orderBy('jam', 'desc')->limit(3)->get();
+                    @endphp
+
+                    @forelse($recentLogs as $log)
+                        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 flex space-x-3 group hover:border-[#7da8b6]/30 hover:bg-white transition-all">
+                            <div class="w-9 h-9 rounded-full bg-[#edf3f6] flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-location-dot text-[#4a7a8a] text-sm drop-shadow-sm"></i>
                             </div>
-                            <div class="flex items-center justify-between mt-1.5">
-                                <span class="text-[10px] text-slate-500 flex items-center">
-                                    <i class="fa-regular fa-clock mr-1 text-slate-400"></i>{{ substr($log->jam, 0, 5) }}
-                                </span>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full {{ $log->suhu_tubuh >= 37.5 ? 'bg-rose-100 text-rose-600' : 'bg-emerald-100 text-emerald-600' }}">
-                                    {{ $log->suhu_tubuh }}°C
-                                </span>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold text-sm text-[#1e3a5f] truncate" title="{{ $log->lokasi }}">{{ $log->lokasi }}</h4>
+                                    <span class="text-[10px] text-slate-400 font-medium whitespace-nowrap ml-2">{{ \Carbon\Carbon::parse($log->tanggal)->translatedFormat('d M') }}</span>
+                                </div>
+                                <div class="flex items-center justify-between mt-1.5">
+                                    <span class="text-[10px] text-slate-500 flex items-center">
+                                        <i class="fa-regular fa-clock mr-1 text-slate-400"></i>{{ substr($log->jam, 0, 5) }}
+                                    </span>
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full {{ $log->suhu_tubuh >= 37.5 ? 'bg-rose-100 text-rose-600' : 'bg-emerald-100 text-emerald-600' }}">
+                                        {{ $log->suhu_tubuh }}°C
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @empty
-                    <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-3 py-10 border-2 border-dashed border-slate-200 rounded-2xl">
-                        <i class="fa-solid fa-clipboard-list text-2xl"></i>
-                        <p class="text-xs text-center font-medium">Belum ada catatan.<br>Mulai tracking perdana Anda.</p>
-                    </div>
-                @endforelse
+                    @empty
+                        <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-3 py-10 border-2 border-dashed border-slate-200 rounded-2xl">
+                            <i class="fa-solid fa-clipboard-list text-2xl drop-shadow-sm"></i>
+                            <p class="text-xs text-center font-medium">Belum ada catatan.<br>Mulai tracking perdana Anda.</p>
+                        </div>
+                    @endforelse
+                </div>
             </div>
         </div>
 

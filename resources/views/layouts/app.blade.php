@@ -42,7 +42,22 @@
         }
     </style>
 </head>
-<body class="bg-[#edf3f6] min-h-screen text-[#1e293b] font-sans antialiased flex overflow-x-hidden {{ Auth::check() && Auth::user()->role === 'admin' ? 'flex-col md:flex-row' : 'flex-col' }}" x-data="{ helpModalOpen: false }">
+<body class="bg-[#edf3f6] min-h-screen text-[#1e293b] font-sans antialiased flex overflow-x-hidden {{ Auth::check() && Auth::user()->role === 'admin' ? 'flex-col md:flex-row' : 'flex-col' }}" 
+      x-data="{ helpModalOpen: false, loaded: false }" 
+      x-init="window.addEventListener('load', () => setTimeout(() => loaded = true, 400))">
+
+    <!-- Global Pre-loader -->
+    <div x-show="!loaded" 
+         x-transition:leave="transition opacity duration-500" 
+         x-transition:leave-start="opacity-100" 
+         x-transition:leave-end="opacity-0" 
+         class="fixed inset-0 z-[9999] bg-[#edf3f6] flex flex-col items-center justify-center pointer-events-none">
+        <div class="w-20 h-20 rounded-full bg-white/80 border border-slate-200 shadow-xl flex items-center justify-center mb-4 relative">
+            <div class="absolute inset-0 rounded-full bg-[#5c8d9d]/20 animate-ping"></div>
+            <i class="fa-solid fa-heart-pulse text-[#4a7a8a] text-4xl relative z-10 animate-pulse"></i>
+        </div>
+        <h2 class="text-xl font-bold text-[#1a365d] tracking-widest animate-pulse">HealthyWay</h2>
+    </div>
 
     @auth
         @if(Auth::user()->role === 'masyarakat')
@@ -237,7 +252,10 @@
         @endauth
 
         <!-- Dynamic Content Body -->
-        <div class="flex-1 p-4 sm:p-6 md:p-8 {{ Auth::check() && Auth::user()->role === 'masyarakat' ? 'max-w-7xl mx-auto w-full' : '' }} body-font">
+        <div class="flex-1 p-4 sm:p-6 md:p-8 {{ Auth::check() && Auth::user()->role === 'masyarakat' ? 'max-w-7xl mx-auto w-full' : '' }} body-font transition-all duration-700 ease-out transform"
+             x-data="{ show: false }" 
+             x-init="setTimeout(() => show = true, 100)" 
+             :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
             
             <!-- Toast Notifications -->
             @if(session('success'))
