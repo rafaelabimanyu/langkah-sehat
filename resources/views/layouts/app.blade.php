@@ -47,11 +47,11 @@
     @auth
         @if(Auth::user()->role === 'masyarakat')
             <!-- SLEEK TOP NAVIGATION BAR FOR MASYARAKAT -->
-            <header class="w-full bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-50 transition-all duration-300">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+            <header class="w-full bg-white/10 backdrop-blur-xl border-b border-white/20 sticky top-0 z-50 transition-all duration-300" x-data="{ mobileOpen: false }">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                     
                     <!-- Brand Logo -->
-                    <a href="{{ route('masyarakat.dashboard') }}" class="flex items-center space-x-2.5">
+                    <a href="{{ route('masyarakat.dashboard') }}" class="flex items-center space-x-2.5 shrink-0">
                         <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-400 to-emerald-400 flex items-center justify-center shadow-lg shadow-cyan-500/20">
                             <i class="fa-solid fa-heart-pulse text-slate-950 text-base"></i>
                         </div>
@@ -61,32 +61,76 @@
                         </div>
                     </a>
 
-                    <!-- Left Nav Items (Simple, since it's all in one page) -->
-                    <div class="hidden sm:flex items-center space-x-6">
-                        <a href="{{ route('masyarakat.dashboard') }}" class="flex items-center space-x-2 px-3 py-2 rounded-xl bg-white/10 text-cyan-300 font-semibold border border-white/10 text-sm">
-                            <i class="fa-solid fa-house"></i>
-                            <span>Dashboard & Riwayat</span>
+                    <!-- Center Nav Links (Desktop) -->
+                    <nav class="hidden md:flex items-center space-x-1">
+                        <a href="{{ route('masyarakat.dashboard') }}" class="flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 {{ Route::is('masyarakat.dashboard') ? 'bg-white/15 text-cyan-300 border border-white/20 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-white/60 hover:bg-white/5 hover:text-white' }}">
+                            <i class="fa-solid fa-house text-xs"></i>
+                            <span>Dashboard</span>
                         </a>
-                    </div>
+                        <a href="{{ route('perjalanan.create') }}" class="flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 {{ Route::is('perjalanan.create') ? 'bg-white/15 text-cyan-300 border border-white/20 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-white/60 hover:bg-white/5 hover:text-white' }}">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                            <span>Catat Perjalanan</span>
+                        </a>
+                        <a href="{{ route('perjalanan.riwayat') }}" class="flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 {{ Route::is('perjalanan.riwayat') ? 'bg-white/15 text-cyan-300 border border-white/20 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-white/60 hover:bg-white/5 hover:text-white' }}">
+                            <i class="fa-solid fa-calendar-days text-xs"></i>
+                            <span>Riwayat Log</span>
+                        </a>
+                    </nav>
 
                     <!-- Right Side: User Profile & Logout -->
-                    <div class="flex items-center space-x-4">
-                        <div class="hidden md:flex items-center space-x-3 pr-3 border-r border-white/10">
+                    <div class="flex items-center space-x-3">
+                        <div class="hidden lg:flex items-center space-x-3 pr-3 border-r border-white/10">
                             <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-300 font-bold text-sm">
                                 {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
                             </div>
                             <span class="text-sm font-semibold text-white/90">{{ Auth::user()->name }}</span>
                         </div>
 
-                        <form action="{{ route('logout') }}" method="POST" class="m-0">
+                        <form action="{{ route('logout') }}" method="POST" class="m-0 hidden sm:block">
                             @csrf
                             <button type="submit" class="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/25 border border-rose-500/20 text-rose-300 hover:text-white text-xs font-bold transition-all duration-300 hover:-translate-y-0.5 cursor-pointer">
                                 <i class="fa-solid fa-sign-out-alt"></i>
                                 <span>Keluar</span>
                             </button>
                         </form>
+
+                        <!-- Mobile Menu Toggle -->
+                        <button @click="mobileOpen = !mobileOpen" class="md:hidden text-white/70 hover:text-cyan-400 transition-colors p-2">
+                            <i class="fa-solid" :class="mobileOpen ? 'fa-xmark' : 'fa-bars'" class="text-lg"></i>
+                        </button>
                     </div>
 
+                </div>
+
+                <!-- Mobile Navigation Dropdown -->
+                <div x-show="mobileOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="md:hidden bg-slate-950/90 backdrop-blur-xl border-t border-white/10 px-4 py-3 space-y-1" style="display: none;">
+                    <a href="{{ route('masyarakat.dashboard') }}" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold {{ Route::is('masyarakat.dashboard') ? 'bg-white/10 text-cyan-300' : 'text-white/60 hover:bg-white/5' }}">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="{{ route('perjalanan.create') }}" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold {{ Route::is('perjalanan.create') ? 'bg-white/10 text-cyan-300' : 'text-white/60 hover:bg-white/5' }}">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Catat Perjalanan</span>
+                    </a>
+                    <a href="{{ route('perjalanan.riwayat') }}" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold {{ Route::is('perjalanan.riwayat') ? 'bg-white/10 text-cyan-300' : 'text-white/60 hover:bg-white/5' }}">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span>Riwayat Log & Analisis</span>
+                    </a>
+                    <div class="border-t border-white/10 pt-2 mt-2">
+                        <div class="flex items-center space-x-3 px-4 py-2">
+                            <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-300 font-bold text-sm">
+                                {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
+                            </div>
+                            <span class="text-sm font-semibold text-white/90">{{ Auth::user()->name }}</span>
+                        </div>
+                        <form action="{{ route('logout') }}" method="POST" class="mt-1">
+                            @csrf
+                            <button type="submit" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/25 border border-rose-500/20 text-rose-300 text-sm font-bold transition-all cursor-pointer">
+                                <i class="fa-solid fa-sign-out-alt"></i>
+                                <span>Keluar</span>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </header>
         @else

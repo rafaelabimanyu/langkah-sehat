@@ -8,21 +8,18 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Carbon\Carbon;
 
 class MasyarakatController extends Controller
 {
     /**
-     * Display a listing of the user's travel logs and statistics.
+     * Display the main dashboard with quick overview and health analytics.
      */
     public function index(Request $request): View
     {
-        $search = $request->input('search');
-        $filterSuhu = $request->input('filter_suhu');
-        $filterTanggal = $request->input('filter_tanggal');
-
         $user = Auth::user();
         
-        // 1. Calculate Analytics
+        // Calculate Analytics
         $totalLogs = $user->perjalanans()->count();
         $avgTemp = $user->perjalanans()->avg('suhu_tubuh') ?? 0;
         
@@ -35,7 +32,61 @@ class MasyarakatController extends Controller
             $healthStatus = 'Demam (Butuh Istirahat)';
         }
 
-        // 2. Query Logs for Table
+        // Weekly temperature trend data (last 7 days)
+        $weeklyTemps = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = Carbon::today()->subDays($i);
+            $dayAvg = $user->perjalanans()
+                ->whereDate('tanggal', $date)
+                ->avg('suhu_tubuh');
+            $weeklyTemps[] = [
+                'day' => $date->translatedFormat('D'),
+                'date' => $date->translatedFormat('d M'),
+                'temp' => $dayAvg ? round($dayAvg, 1) : null,
+            ];
+        }
+
+        // Recent 3 logs for quick glance
+        $recentLogs = $user->perjalanans()
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('jam', 'desc')
+            ->take(3)
+            ->get();
+
+        return view('masyarakat.dashboard', compact(
+            'totalLogs',
+            'avgTemp',
+            'healthStatus',
+            'weeklyTemps',
+            'recentLogs'
+        ));
+    }
+
+    /**
+     * Show the dedicated travel input form page.
+     */
+    public function create(): View
+    {
+        return view('masyarakat.create');
+    }
+
+    /**
+     * Display the full travel history with filters and analysis.
+     */
+    public function riwayat(Request $request): View
+    {
+        $search = $request->input('search');
+        $filterSuhu = $request->input('filter_suhu');
+        $filterTanggal = $request->input('filter_tanggal');
+
+        $user = Auth::user();
+        
+        // Analytics for the history page
+        $totalLogs = $user->perjalanans()->count();
+        $avgTemp = $user->perjalanans()->avg('suhu_tubuh') ?? 0;
+        $highTempCount = $user->perjalanans()->where('suhu_tubuh', '>=', 37.5)->count();
+        
+        // Query Logs for Table
         $query = $user->perjalanans();
 
         if ($search) {
@@ -58,15 +109,50 @@ class MasyarakatController extends Controller
                              ->orderBy('jam', 'desc')
                              ->get();
 
-        return view('masyarakat.dashboard', compact(
+        return view('masyarakat.riwayat', compact(
             'perjalanans', 
             'search', 
             'filterSuhu', 
             'filterTanggal',
             'totalLogs',
             'avgTemp',
-            'healthStatus'
+            'highTempCount'
         ));
+    }
+
+    /**
+     * Print-friendly view for personal travel logs.
+     */
+    public function print(Request $request): View
+    {
+        $search = $request->input('search');
+        $filterSuhu = $request->input('filter_suhu');
+        $filterTanggal = $request->input('filter_tanggal');
+
+        $user = Auth::user();
+        $query = $user->perjalanans();
+
+        if ($search) {
+            $query->where('lokasi', 'like', '%' . $search . '%');
+        }
+
+        if ($filterSuhu) {
+            if ($filterSuhu === 'normal') {
+                $query->where('suhu_tubuh', '<', 37.5);
+            } elseif ($filterSuhu === 'demam') {
+                $query->where('suhu_tubuh', '>=', 37.5);
+            }
+        }
+
+        if ($filterTanggal) {
+            $query->whereDate('tanggal', $filterTanggal);
+        }
+
+        $perjalanans = $query->orderBy('tanggal', 'desc')
+                             ->orderBy('jam', 'desc')
+                             ->get();
+
+        return view('masyarakat.print', compact('perjalanans', 'search', 'filterSuhu', 'filterTanggal'));
     }
 
     /**
@@ -76,7 +162,7 @@ class MasyarakatController extends Controller
     {
         Auth::user()->perjalanans()->create($request->validated());
 
-        return redirect()->route('masyarakat.dashboard')
+        return redirect()->route('perjalanan.riwayat')
             ->with('success', 'Catatan perjalanan baru berhasil ditambahkan!');
     }
 
@@ -105,7 +191,7 @@ class MasyarakatController extends Controller
 
         $perjalanan->update($request->validated());
 
-        return redirect()->route('masyarakat.dashboard')
+        return redirect()->route('perjalanan.riwayat')
             ->with('success', 'Catatan perjalanan berhasil diperbarui!');
     }
 
@@ -121,7 +207,7 @@ class MasyarakatController extends Controller
 
         $perjalanan->delete();
 
-        return redirect()->route('masyarakat.dashboard')
+        return redirect()->route('perjalanan.riwayat')
             ->with('success', 'Catatan perjalanan berhasil dihapus!');
     }
 }

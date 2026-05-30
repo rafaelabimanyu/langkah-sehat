@@ -28,6 +28,9 @@ Route::middleware('auth')->group(function () {
     // Masyarakat Roles
     Route::middleware('role:masyarakat')->group(function () {
         Route::get('/dashboard', [MasyarakatController::class, 'index'])->name('masyarakat.dashboard');
+        Route::get('/perjalanan/catat', [MasyarakatController::class, 'create'])->name('perjalanan.create');
+        Route::get('/perjalanan/riwayat', [MasyarakatController::class, 'riwayat'])->name('perjalanan.riwayat');
+        Route::get('/perjalanan/print', [MasyarakatController::class, 'print'])->name('perjalanan.print');
         Route::post('/perjalanan', [MasyarakatController::class, 'store'])->name('perjalanan.store');
         Route::get('/perjalanan/{perjalanan}/edit', [MasyarakatController::class, 'edit'])->name('perjalanan.edit');
         Route::put('/perjalanan/{perjalanan}', [MasyarakatController::class, 'update'])->name('perjalanan.update');
