@@ -352,7 +352,7 @@
         <!-- Footer Bottom Bar -->
         <div class="border-t border-slate-200/60 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-semibold body-font max-w-7xl mx-auto w-full">
             <p>&copy; {{ date('Y') }} HealthyWay. {{ __('Seluruh hak cipta dilindungi.') }}</p>
-            <p class="mt-2 sm:mt-0 text-[#4a7a8a]">{{ __('Premium Light Medical Design by rafaelabimanyu') }}</p>
+            <p class="mt-2 sm:mt-0 text-[#4a7a8a]">{{ __('Premium Light Medical Design by aranxa') }}</p>
         </div>
     </footer>
 
